@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using T_HUB.Model;
 
-namespace T_HUB.Dao {
-    interface RideDao {
+namespace T_HUB.Dao
+{
+    interface RideDao
+    {
 
         /// <summary>
         /// Registers a new ride

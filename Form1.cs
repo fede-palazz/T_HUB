@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace T_HUB
 {
     public partial class Form1 : Form
@@ -15,6 +16,8 @@ namespace T_HUB
         public Form1()
         {
             InitializeComponent();
+            T_HUB.Model.Vehicle v = new Model.Vehicle();
+            v.
         }
 
     }

@@ -50,7 +50,7 @@ namespace T_HUB
             this.exportPnl = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.navBarPnl = new System.Windows.Forms.FlowLayoutPanel();
-            this.navHomePtb = new System.Windows.Forms.PictureBox();
+            this.navDashPtb = new System.Windows.Forms.PictureBox();
             this.navVehsPtb = new System.Windows.Forms.PictureBox();
             this.navRidesPtb = new System.Windows.Forms.PictureBox();
             this.navExpPtb = new System.Windows.Forms.PictureBox();
@@ -67,7 +67,7 @@ namespace T_HUB
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.exportPnl.SuspendLayout();
             this.navBarPnl.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.navHomePtb)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.navDashPtb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.navVehsPtb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.navRidesPtb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.navExpPtb)).BeginInit();
@@ -282,7 +282,7 @@ namespace T_HUB
             // 
             // navBarPnl
             // 
-            this.navBarPnl.Controls.Add(this.navHomePtb);
+            this.navBarPnl.Controls.Add(this.navDashPtb);
             this.navBarPnl.Controls.Add(this.navVehsPtb);
             this.navBarPnl.Controls.Add(this.navRidesPtb);
             this.navBarPnl.Controls.Add(this.navExpPtb);
@@ -293,20 +293,20 @@ namespace T_HUB
             this.navBarPnl.Size = new System.Drawing.Size(763, 65);
             this.navBarPnl.TabIndex = 9;
             // 
-            // navHomePtb
+            // navDashPtb
             // 
-            this.navHomePtb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.navHomePtb.Image = global::T_HUB.Properties.Resources.navbar_dash_unsel;
-            this.navHomePtb.Location = new System.Drawing.Point(110, 10);
-            this.navHomePtb.Margin = new System.Windows.Forms.Padding(110, 10, 3, 3);
-            this.navHomePtb.Name = "navHomePtb";
-            this.navHomePtb.Size = new System.Drawing.Size(48, 48);
-            this.navHomePtb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.navHomePtb.TabIndex = 0;
-            this.navHomePtb.TabStop = false;
-            this.navHomePtb.Click += new System.EventHandler(this.navHomePtb_Click);
-            this.navHomePtb.MouseEnter += new System.EventHandler(this.navHomePtb_MouseEnter);
-            this.navHomePtb.MouseLeave += new System.EventHandler(this.navHomePtb_MouseLeave);
+            this.navDashPtb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.navDashPtb.Image = global::T_HUB.Properties.Resources.navbar_dash_sel;
+            this.navDashPtb.Location = new System.Drawing.Point(110, 10);
+            this.navDashPtb.Margin = new System.Windows.Forms.Padding(110, 10, 3, 3);
+            this.navDashPtb.Name = "navDashPtb";
+            this.navDashPtb.Size = new System.Drawing.Size(48, 48);
+            this.navDashPtb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.navDashPtb.TabIndex = 0;
+            this.navDashPtb.TabStop = false;
+            this.navDashPtb.Click += new System.EventHandler(this.navDashPtb_Click);
+            this.navDashPtb.MouseEnter += new System.EventHandler(this.navDashPtb_MouseEnter);
+            this.navDashPtb.MouseLeave += new System.EventHandler(this.navDashPtb_MouseLeave);
             // 
             // navVehsPtb
             // 
@@ -390,7 +390,7 @@ namespace T_HUB
             this.exportPnl.ResumeLayout(false);
             this.exportPnl.PerformLayout();
             this.navBarPnl.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.navHomePtb)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.navDashPtb)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.navVehsPtb)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.navRidesPtb)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.navExpPtb)).EndInit();
@@ -415,7 +415,7 @@ namespace T_HUB
         private System.Windows.Forms.Label vanCountLbl;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.FlowLayoutPanel navBarPnl;
-        private System.Windows.Forms.PictureBox navHomePtb;
+        private System.Windows.Forms.PictureBox navDashPtb;
         private System.Windows.Forms.PictureBox navVehsPtb;
         private System.Windows.Forms.PictureBox navRidesPtb;
         private System.Windows.Forms.PictureBox navExpPtb;

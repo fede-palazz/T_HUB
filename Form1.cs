@@ -13,6 +13,12 @@ namespace T_HUB
 {
     public partial class Form1 : Form
     {
+        /// <summary>
+        /// Global variable used to determine which panel is currently displayed
+        /// Values : {"dash", "vehs", "rides", "export"}
+        /// </summary>
+        private string panel;
+
         public Form1()
         {
             InitializeComponent();
@@ -23,70 +29,107 @@ namespace T_HUB
             titlePnl.BackColor = ColorTranslator.FromHtml("#263238");
             titleLbl.ForeColor = ColorTranslator.FromHtml("#eceff1");
             navBarPnl.BackColor = ColorTranslator.FromHtml("#263238");
+            dashPnl.BringToFront();
+            panel = "dash";
         }
 
-        private void navHomePtb_MouseEnter(object sender, EventArgs e)
+        #region Navbar
+
+        private void navDashPtb_MouseEnter(object sender, EventArgs e)
         {
-            navHomePtb.Image = T_HUB.Properties.Resources.navbar_dash_sel;
+            if (panel != "dash")
+                navDashPtb.Image = T_HUB.Properties.Resources.navbar_dash_sel;
         }
 
-        private void navHomePtb_MouseLeave(object sender, EventArgs e)
+        private void navDashPtb_MouseLeave(object sender, EventArgs e)
         {
-            navHomePtb.Image = T_HUB.Properties.Resources.navbar_dash_unsel;
+            if (panel != "dash")
+                navDashPtb.Image = T_HUB.Properties.Resources.navbar_dash_unsel;
         }
 
         private void navVehsPtb_MouseEnter(object sender, EventArgs e)
         {
-            navVehsPtb.Image = T_HUB.Properties.Resources.navbar_vehs_sel;
+            if (panel != "vehs")
+                navVehsPtb.Image = T_HUB.Properties.Resources.navbar_vehs_sel;
         }
 
         private void navVehsPtb_MouseLeave(object sender, EventArgs e)
         {
-            navVehsPtb.Image = T_HUB.Properties.Resources.navbar_vehs_unsel;
+            if (panel != "vehs")
+                navVehsPtb.Image = T_HUB.Properties.Resources.navbar_vehs_unsel;
         }
 
         private void navRidesPtb_MouseEnter(object sender, EventArgs e)
         {
-            navRidesPtb.Image = T_HUB.Properties.Resources.navbar_flag_sel;
+            if (panel != "rides")
+                navRidesPtb.Image = T_HUB.Properties.Resources.navbar_flag_sel;
         }
 
         private void navRidesPtb_MouseLeave(object sender, EventArgs e)
         {
-            navRidesPtb.Image = T_HUB.Properties.Resources.navbar_flag_unsel;
+            if (panel != "rides")
+                navRidesPtb.Image = T_HUB.Properties.Resources.navbar_flag_unsel;
         }
 
         private void navExpPtb_MouseEnter(object sender, EventArgs e)
         {
-            navExpPtb.Image = T_HUB.Properties.Resources.navbar_export_sel;
+            if (panel != "export")
+                navExpPtb.Image = T_HUB.Properties.Resources.navbar_export_sel;
         }
 
         private void navExpPtb_MouseLeave(object sender, EventArgs e)
         {
-            navExpPtb.Image = T_HUB.Properties.Resources.navbar_export_unsel;
+            if (panel != "export")
+                navExpPtb.Image = T_HUB.Properties.Resources.navbar_export_unsel;
         }
 
-        private void navHomePtb_Click(object sender, EventArgs e)
+        private void navDashPtb_Click(object sender, EventArgs e)
         {
-            dashPnl.BringToFront();
             titleLbl.Text = "Dashboard";
+            dashPnl.BringToFront();
+            // Reset buttons selections
+            navVehsPtb.Image = T_HUB.Properties.Resources.navbar_vehs_unsel;
+            navRidesPtb.Image = T_HUB.Properties.Resources.navbar_flag_unsel;
+            navExpPtb.Image = T_HUB.Properties.Resources.navbar_export_unsel;
+            panel = "dash";
         }
 
         private void navVehsPtb_Click(object sender, EventArgs e)
         {
-            vehsPnl.BringToFront();
             titleLbl.Text = "Vehicles";
+            vehsPnl.BringToFront();
+            // Reset buttons selections
+            navDashPtb.Image = T_HUB.Properties.Resources.navbar_dash_unsel;
+            navRidesPtb.Image = T_HUB.Properties.Resources.navbar_flag_unsel;
+            navExpPtb.Image = T_HUB.Properties.Resources.navbar_export_unsel;
+            panel = "vehs";
         }
 
         private void navRidesPtb_Click(object sender, EventArgs e)
         {
-            ridesPnl.BringToFront();
             titleLbl.Text = "Rides";
+            ridesPnl.BringToFront();
+            // Reset buttons selections
+            navDashPtb.Image = T_HUB.Properties.Resources.navbar_dash_unsel;
+            navVehsPtb.Image = T_HUB.Properties.Resources.navbar_vehs_unsel;
+            navExpPtb.Image = T_HUB.Properties.Resources.navbar_export_unsel;
+            panel = "rides";
         }
 
         private void navExpPtb_Click(object sender, EventArgs e)
         {
-            exportPnl.BringToFront();
             titleLbl.Text = "Export";
+            exportPnl.BringToFront();
+            // Reset buttons selections
+            navDashPtb.Image = T_HUB.Properties.Resources.navbar_dash_unsel;
+            navVehsPtb.Image = T_HUB.Properties.Resources.navbar_vehs_unsel;
+            navRidesPtb.Image = T_HUB.Properties.Resources.navbar_flag_unsel;
+            panel = "export";
         }
+
+
+        #endregion
+
+
     }
 }

@@ -22,9 +22,8 @@ namespace T_HUB.Dao {
         /// <summary>
         /// Updates the info of an existing vehicle
         /// </summary>
-        /// <param name="licPlt">License Plate of the vehicle to update</param>
-        /// <param name="veh">Vehicle with the new parameters</param>
-        void UpdVeh(string licPlt, Vehicle veh);
+        /// <param name="veh">Updated vehicle</param>
+        void UpdVeh(Vehicle veh);
 
         /// <summary>
         /// Returns the full vehicles list
@@ -49,15 +48,7 @@ namespace T_HUB.Dao {
         /// Removes the specified vehicle from the list
         /// </summary>
         /// <param name="licPlt">License Plate of the vehicle to remove</param>
-        void DelVehs(string licPlt);
-
-        /// <summary>
-        /// Returns a sorted vehicles list
-        /// </summary>
-        /// <param name="param">Sorting parameter {"mod", "lic", "km"}</param>
-        /// <param name="mode">Sorting mode {"asc", "desc"}</param>
-        /// <returns>Sorted vehicles list</returns>
-        List<Vehicle> Sort(string param, string mode);
+        void DelVeh(string licPlt);
 
         /// <summary>
         /// Adds to the list the vehicles passed as parameter

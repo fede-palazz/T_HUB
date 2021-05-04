@@ -18,8 +18,8 @@ namespace T_HUB.Dao
         /// Ends a ride
         /// </summary>
         /// <param name="licPlt">License plate of the associated vehicle</param>
-        /// <param name="endTm">End time of the ride</param>
-        void EndRide(string licPlt, DateTime endTm);
+        /// <param name="priceKm">Vehicle price</param>
+        void EndRide(string licPlt, double priceKm);
 
         /// <summary>
         /// Returns the current rides list
@@ -46,22 +46,6 @@ namespace T_HUB.Dao
         List<Ride> DelComplRides();
 
         /// <summary>
-        /// Sorts the current rides list
-        /// </summary>
-        /// <param name="param">Sorting parameter {"lic", "startTm", "km"}</param>
-        /// <param name="mode">Sorting mode {"asc", "desc"}</param>
-        /// <returns>Sorted current rides list</returns>
-        List<Ride> SortRides(string param, string mode);
-
-        /// <summary>
-        /// Sorts the completed rides list
-        /// </summary>
-        /// <param name="param">Sorting parameter {"lic", "startTm", "km", "endTm"}</param>
-        /// <param name="mode">Sorting mode {"asc", "desc"}</param>
-        /// <returns>Sorted completed rides list</returns>
-        List<Ride> SortComplRides(string param, string mode);
-
-        /// <summary>
         /// Adds to the current rides list the rides passed as parameter
         /// </summary>
         /// <param name="rides">Current rides list to load</param>
@@ -72,5 +56,12 @@ namespace T_HUB.Dao
         /// </summary>
         /// <param name="rides">Completed rides list to load</param>
         void LoadComplRides(List<Ride> rides);
+
+        /// <summary>
+        /// Returns true if the specified vehicle is not present in the rides list
+        /// </summary>
+        /// <param name="licPlt">License plate of the vehicle</param>
+        /// <returns></returns>
+        bool isAvailable(string licPlt);
     }
 }

@@ -10,7 +10,7 @@ namespace T_HUB.Model {
         /// </summary>
         public int MaxPass { get; set; }
 
-        public Car(string licPlt, float gasKm, float priceKm, int maxPass, string mod = null) :
+        public Car(string licPlt, double gasKm, double priceKm, int maxPass, string mod = null) :
             base(licPlt, gasKm, priceKm, mod) {
             this.MaxPass = maxPass;
         }

@@ -19,52 +19,69 @@ namespace T_HUB.Dao
 
         public void AddRide(Ride ride)
         {
-            throw new NotImplementedException();
+            this.rides.Add(new Ride(ride.VehType, ride.VehLicPlt, ride.Km, ride.StartTm,
+                ride.EndTm, ride.StartPrc));
         }
 
         public List<Ride> DelComplRides()
         {
-            throw new NotImplementedException();
+            List<Ride> temp = new List<Ride>(complRides);
+            complRides.Clear();
+            return temp;
         }
 
         public List<Ride> DelRides()
         {
-            throw new NotImplementedException();
+            List<Ride> temp = new List<Ride>(rides);
+            rides.Clear();
+            return temp;
         }
 
-        public void EndRide(string licPlt, DateTime endTm)
+        public void EndRide(string licPlt, double priceKm)
         {
-            throw new NotImplementedException();
+            foreach (Ride r in rides)
+            {
+                if (r.VehLicPlt == licPlt) // Found the ride
+                {
+                    r.EndPrc = (priceKm * r.Km) + r.StartPrc; // Set end price of the ride
+                    complRides.Add(r);
+                    rides.Remove(r);
+                    return;
+                }
+            }
         }
 
         public List<Ride> GetComplRides()
         {
-            throw new NotImplementedException();
+            return complRides;
         }
 
         public List<Ride> GetRides()
         {
-            throw new NotImplementedException();
+            return rides;
         }
 
-        public List<Ride> SortComplRides(string param, string mode)
+        public bool isAvailable(string licPlt)
         {
-            throw new NotImplementedException();
-        }
-
-        public List<Ride> SortRides(string param, string mode)
-        {
-            throw new NotImplementedException();
+            foreach (Ride r in rides)
+                if (r.VehLicPlt == licPlt)
+                    return false;
+            return true;
         }
 
         public void LoadComplRides(List<Ride> rides)
         {
-            throw new NotImplementedException();
+            foreach (Ride r in rides)
+            {
+                complRides.Add(new Ride(r.VehType, r.VehLicPlt, r.Km, r.StartTm, r.EndTm, r.StartPrc));
+            }
         }
 
         public void LoadRides(List<Ride> rides)
         {
-            throw new NotImplementedException();
+            foreach (Ride r in rides)
+                rides.Add(new Ride(r.VehType, r.VehLicPlt, r.Km, r.StartTm, r.EndTm, r.StartPrc));
+
         }
 
 

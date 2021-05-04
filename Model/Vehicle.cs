@@ -18,19 +18,19 @@ namespace T_HUB.Model {
         /// <summary>
         /// Gas usage [L/Km]
         /// </summary>
-        public float GasKm { get; set; }
+        public double GasKm { get; set; }
 
         /// <summary>
         /// Price in euros/Km
         /// </summary>
-        public float PriceKm { get; set; }
+        public double PriceKm { get; set; }
 
         /// <summary>
         /// Total Km traveled
         /// </summary>
-        public float TotalKm { get; set; }
+        public double TotalKm { get; set; }
 
-        public Vehicle(string licPlt, float gasKm, float priceKm, string mod = null) {
+        public Vehicle(string licPlt, double gasKm, double priceKm, string mod = null) {
             this.LicPlt = licPlt;
             this.GasKm = gasKm;
             this.PriceKm = priceKm;
@@ -38,11 +38,20 @@ namespace T_HUB.Model {
             this.TotalKm = 0;
         }
 
+        public Vehicle(string licPlt, double gasKm, double priceKm, double totalKm, string mod = null)
+        {
+            this.LicPlt = licPlt;
+            this.GasKm = gasKm;
+            this.PriceKm = priceKm;
+            this.Mod = mod;
+            this.TotalKm = totalKm;
+        }
+
         /// <summary>
         /// Get consumed fuel
         /// </summary>
         /// <returns>Total liters of gas consumed</returns>
-        public float GetGasTot() {
+        public double GetGasTot() {
             return TotalKm * GasKm;
         }
     }

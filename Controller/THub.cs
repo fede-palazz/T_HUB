@@ -3,30 +3,40 @@ using System.Collections.Generic;
 using System.Text;
 using T_HUB.Model;
 
-namespace T_HUB.Controller {
-    interface THub {
+namespace T_HUB.Controller
+{
+    interface THub
+    {
 
         /// <summary>
         /// Registers a new passengers ride
         /// </summary>
-        /// <param name="licPlt">Vehicle license plate</param>
-        /// <param name="km">Total km of the ride</param>
-        /// <param name="startTm">Start time</param>
-        /// <param name="numPass">Number of passengers</param>
-        /// <param name="startPrc">Start price</param>
-        void AddRide(string licPlt, float km, DateTime startTm, int numPass, float startPrc = 0);
+        /// <param name="ride"></param>
+        void AddRide(PassRide ride);
 
         /// <summary>
-        /// 
+        /// Registers a new freight ride
         /// </summary>
-        /// <param name="licPlt">Vehicle license plate</param>
-        /// <param name="km">Total km of the ride</param>
-        /// <param name="startTm">Start time</param>
-        /// <param name="wg">Weight of goods</param>
-        /// <param name="vol">Volume of goods</param>
-        /// <param name="startPrc">Start price</param>
-        void AddRide(string licPlt, float km, DateTime startTm, float wg, float vol,
-            float startPrc = 0);
+        /// <param name="ride"></param>
+        void AddRide(FreightRide ride);
+
+        /// <summary>
+        /// Adds a new vehicle
+        /// </summary>
+        /// <param name="veh"></param>
+        void AddVeh(Vehicle veh);
+
+        /// <summary>
+        /// Updates the vehicle info
+        /// </summary>
+        /// <param name="veh">Updated vehicle</param>
+        void UpdVeh(Vehicle veh);
+
+        /// <summary>
+        /// Delete the specified vehicle
+        /// </summary>
+        /// <param name="licPlt">License plate</param>
+        void DelVeh(string licPlt);
 
         /// <summary>
         /// Returns the complete vehicles list

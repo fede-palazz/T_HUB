@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using T_HUB.Controller;
+using T_HUB.Model;
 
 namespace T_HUB
 {
@@ -15,9 +16,10 @@ namespace T_HUB
     {
         /// <summary>
         /// Global variable used to determine which panel is currently displayed
-        /// Values : {"dash", "vehs", "rides", "export"}
+        /// Values : { "dash", "vehs", "rides" }
         /// </summary>
         private string panel;
+        private THub hub;
 
         public Form1()
         {
@@ -26,11 +28,29 @@ namespace T_HUB
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            hub = new THubImpl();
+            // External bands colors
             titlePnl.BackColor = ColorTranslator.FromHtml("#263238");
             titleLbl.ForeColor = ColorTranslator.FromHtml("#eceff1");
             navBarPnl.BackColor = ColorTranslator.FromHtml("#263238");
+            // Panels colors
+            dashPnl.BackColor = ColorTranslator.FromHtml("#90a4ae");
+            vehsPnl.BackColor = ColorTranslator.FromHtml("#90a4ae");
+            ridesPnl.BackColor = ColorTranslator.FromHtml("#90a4ae");
+            // Labels colors
+            carCountLbl.ForeColor = ColorTranslator.FromHtml("#455a64");
+            // Buttons colors
+            addRideBtn.BackColor = ColorTranslator.FromHtml("#263238");
+            endRideBtn.BackColor = ColorTranslator.FromHtml("#263238");
+
             dashPnl.BringToFront();
             panel = "dash";
+
+
+            hub.AddVeh(new Car("ABC", 2, 0.45, 5, "Audi a3 sportback"));
+            hub.AddVeh(new Truck("DFG", 3, 0.45, 1267.45, 400.5, "Fiat panda"));
+            hub.AddVeh(new Van("XYZ", 0.34, 0.56, 800.2, 400, 8, "Pongo"));
+
         }
 
         #region Navbar
@@ -71,18 +91,6 @@ namespace T_HUB
                 navRidesPtb.Image = T_HUB.Properties.Resources.navbar_flag_unsel;
         }
 
-        private void navExpPtb_MouseEnter(object sender, EventArgs e)
-        {
-            if (panel != "export")
-                navExpPtb.Image = T_HUB.Properties.Resources.navbar_export_sel;
-        }
-
-        private void navExpPtb_MouseLeave(object sender, EventArgs e)
-        {
-            if (panel != "export")
-                navExpPtb.Image = T_HUB.Properties.Resources.navbar_export_unsel;
-        }
-
         private void navDashPtb_Click(object sender, EventArgs e)
         {
             titleLbl.Text = "Dashboard";
@@ -90,7 +98,6 @@ namespace T_HUB
             // Reset buttons selections
             navVehsPtb.Image = T_HUB.Properties.Resources.navbar_vehs_unsel;
             navRidesPtb.Image = T_HUB.Properties.Resources.navbar_flag_unsel;
-            navExpPtb.Image = T_HUB.Properties.Resources.navbar_export_unsel;
             panel = "dash";
         }
 
@@ -101,7 +108,6 @@ namespace T_HUB
             // Reset buttons selections
             navDashPtb.Image = T_HUB.Properties.Resources.navbar_dash_unsel;
             navRidesPtb.Image = T_HUB.Properties.Resources.navbar_flag_unsel;
-            navExpPtb.Image = T_HUB.Properties.Resources.navbar_export_unsel;
             panel = "vehs";
         }
 
@@ -112,21 +118,23 @@ namespace T_HUB
             // Reset buttons selections
             navDashPtb.Image = T_HUB.Properties.Resources.navbar_dash_unsel;
             navVehsPtb.Image = T_HUB.Properties.Resources.navbar_vehs_unsel;
-            navExpPtb.Image = T_HUB.Properties.Resources.navbar_export_unsel;
             panel = "rides";
         }
 
-        private void navExpPtb_Click(object sender, EventArgs e)
+        #endregion
+
+        #region "Vehicles tab"
+
+        private void RefreshVehsList()
         {
-            titleLbl.Text = "Export";
-            exportPnl.BringToFront();
-            // Reset buttons selections
-            navDashPtb.Image = T_HUB.Properties.Resources.navbar_dash_unsel;
-            navVehsPtb.Image = T_HUB.Properties.Resources.navbar_vehs_unsel;
-            navRidesPtb.Image = T_HUB.Properties.Resources.navbar_flag_unsel;
-            panel = "export";
+            vehsList.Items.Clear(); // Removes all vehicles
+            foreach 
         }
 
+        private void LoadVehs()
+        {
+
+        }
 
         #endregion
 

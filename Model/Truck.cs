@@ -8,14 +8,14 @@ namespace T_HUB.Model {
         /// <summary>
         /// Maximum Weight 
         /// </summary>
-        public float MaxWg { get; set; }
+        public double MaxWg { get; set; }
 
         /// <summary>
         /// Maximum Volume
         /// </summary>
-        public float MaxVol { get; set; }
+        public double MaxVol { get; set; }
 
-        public Truck(string licPlt, float gasKm, float priceKm, float maxWg, float maxVol, string mod = null) :
+        public Truck(string licPlt, double gasKm, double priceKm, double maxWg, double maxVol, string mod = null) :
            base(licPlt, gasKm, priceKm, mod) {
             this.MaxWg = maxWg;
             this.MaxVol = maxVol;

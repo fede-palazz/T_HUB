@@ -502,6 +502,7 @@ namespace T_HUB
             this.vehsList.TabIndex = 0;
             this.vehsList.UseCompatibleStateImageBehavior = false;
             this.vehsList.View = System.Windows.Forms.View.Details;
+            this.vehsList.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.vehsList_ColumnClick);
             // 
             // image
             // 

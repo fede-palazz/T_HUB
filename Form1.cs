@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using T_HUB.Controller;
 using T_HUB.Model;
+using T_HUB.Utils;
 
 namespace T_HUB
 {
@@ -42,6 +43,12 @@ namespace T_HUB
             // Buttons colors
             addRideBtn.BackColor = ColorTranslator.FromHtml("#263238");
             endRideBtn.BackColor = ColorTranslator.FromHtml("#263238");
+
+            addVehBtn.BackColor = ColorTranslator.FromHtml("#263238");
+            updVehBtn.BackColor = ColorTranslator.FromHtml("#263238");
+            delVehBtn.BackColor = ColorTranslator.FromHtml("#263238");
+            impVehBtn.BackColor = ColorTranslator.FromHtml("#263238");
+            expVehBtn.BackColor = ColorTranslator.FromHtml("#263238");
 
             #endregion
 
@@ -235,6 +242,33 @@ namespace T_HUB
                             DisplayVeh(v);
                     break;
             }
+        }
+
+        private void vehsList_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            ItemComparer sorter = vehsList.ListViewItemSorter as ItemComparer;
+            if (sorter == null)
+            {
+                sorter = new ItemComparer(e.Column);
+                sorter.Order = SortOrder.Ascending;
+                vehsList.ListViewItemSorter = sorter;
+            }
+            // if clicked column is already the column that is being sorted
+            if (e.Column == sorter.Column)
+            {
+                // Reverse the current sort direction
+                if (sorter.Order == SortOrder.Ascending)
+                    sorter.Order = SortOrder.Descending;
+                else
+                    sorter.Order = SortOrder.Ascending;
+            }
+            else
+            {
+                // Set the column number that is to be sorted; default to ascending.
+                sorter.Column = e.Column;
+                sorter.Order = SortOrder.Ascending;
+            }
+            vehsList.Sort();
         }
 
         #endregion

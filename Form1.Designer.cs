@@ -58,13 +58,13 @@ namespace T_HUB
             this.vanCountLbl = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.vehsPnl = new System.Windows.Forms.Panel();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.viewCmb = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.expVehBtn = new System.Windows.Forms.Button();
+            this.impVehBtn = new System.Windows.Forms.Button();
+            this.delVehBtn = new System.Windows.Forms.Button();
+            this.updVehBtn = new System.Windows.Forms.Button();
+            this.addVehBtn = new System.Windows.Forms.Button();
             this.vehsList = new System.Windows.Forms.ListView();
             this.image = new System.Windows.Forms.ColumnHeader();
             this.licPlt = new System.Windows.Forms.ColumnHeader();
@@ -381,13 +381,13 @@ namespace T_HUB
             // vehsPnl
             // 
             this.vehsPnl.BackColor = System.Drawing.SystemColors.Control;
-            this.vehsPnl.Controls.Add(this.comboBox1);
+            this.vehsPnl.Controls.Add(this.viewCmb);
             this.vehsPnl.Controls.Add(this.label1);
-            this.vehsPnl.Controls.Add(this.button5);
-            this.vehsPnl.Controls.Add(this.button4);
-            this.vehsPnl.Controls.Add(this.button3);
-            this.vehsPnl.Controls.Add(this.button2);
-            this.vehsPnl.Controls.Add(this.button1);
+            this.vehsPnl.Controls.Add(this.expVehBtn);
+            this.vehsPnl.Controls.Add(this.impVehBtn);
+            this.vehsPnl.Controls.Add(this.delVehBtn);
+            this.vehsPnl.Controls.Add(this.updVehBtn);
+            this.vehsPnl.Controls.Add(this.addVehBtn);
             this.vehsPnl.Controls.Add(this.vehsList);
             this.vehsPnl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.vehsPnl.Location = new System.Drawing.Point(0, 65);
@@ -396,16 +396,18 @@ namespace T_HUB
             this.vehsPnl.Size = new System.Drawing.Size(763, 535);
             this.vehsPnl.TabIndex = 7;
             // 
-            // comboBox1
+            // viewCmb
             // 
-            this.comboBox1.Items.AddRange(new object[] {
+            this.viewCmb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.viewCmb.Items.AddRange(new object[] {
             "All",
             "Available",
             "Not available"});
-            this.comboBox1.Location = new System.Drawing.Point(523, 20);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 25);
-            this.comboBox1.TabIndex = 11;
+            this.viewCmb.Location = new System.Drawing.Point(523, 20);
+            this.viewCmb.Name = "viewCmb";
+            this.viewCmb.Size = new System.Drawing.Size(121, 25);
+            this.viewCmb.TabIndex = 11;
+            this.viewCmb.SelectedIndexChanged += new System.EventHandler(this.viewCmb_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -417,65 +419,68 @@ namespace T_HUB
             this.label1.TabIndex = 10;
             this.label1.Text = "View";
             // 
-            // button5
+            // expVehBtn
             // 
-            this.button5.BackgroundImage = global::T_HUB.Properties.Resources.exportVehs;
-            this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button5.FlatAppearance.BorderSize = 0;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Location = new System.Drawing.Point(664, 368);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(70, 70);
-            this.button5.TabIndex = 9;
-            this.button5.UseVisualStyleBackColor = true;
+            this.expVehBtn.BackgroundImage = global::T_HUB.Properties.Resources.exportVehs;
+            this.expVehBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.expVehBtn.FlatAppearance.BorderSize = 0;
+            this.expVehBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.expVehBtn.Location = new System.Drawing.Point(664, 368);
+            this.expVehBtn.Name = "expVehBtn";
+            this.expVehBtn.Size = new System.Drawing.Size(70, 70);
+            this.expVehBtn.TabIndex = 9;
+            this.expVehBtn.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // impVehBtn
             // 
-            this.button4.BackgroundImage = global::T_HUB.Properties.Resources.importVehs;
-            this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Location = new System.Drawing.Point(664, 292);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(70, 70);
-            this.button4.TabIndex = 9;
-            this.button4.UseVisualStyleBackColor = true;
+            this.impVehBtn.BackgroundImage = global::T_HUB.Properties.Resources.importVehs;
+            this.impVehBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.impVehBtn.FlatAppearance.BorderSize = 0;
+            this.impVehBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.impVehBtn.Location = new System.Drawing.Point(664, 292);
+            this.impVehBtn.Name = "impVehBtn";
+            this.impVehBtn.Size = new System.Drawing.Size(70, 70);
+            this.impVehBtn.TabIndex = 9;
+            this.impVehBtn.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // delVehBtn
             // 
-            this.button3.BackgroundImage = global::T_HUB.Properties.Resources.delVeh;
-            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(664, 216);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(70, 70);
-            this.button3.TabIndex = 9;
-            this.button3.UseVisualStyleBackColor = true;
+            this.delVehBtn.BackgroundImage = global::T_HUB.Properties.Resources.delVeh;
+            this.delVehBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.delVehBtn.FlatAppearance.BorderSize = 0;
+            this.delVehBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.delVehBtn.Location = new System.Drawing.Point(664, 216);
+            this.delVehBtn.Name = "delVehBtn";
+            this.delVehBtn.Size = new System.Drawing.Size(70, 70);
+            this.delVehBtn.TabIndex = 9;
+            this.delVehBtn.UseVisualStyleBackColor = true;
+            this.delVehBtn.Click += new System.EventHandler(this.delVehBtn_Click);
             // 
-            // button2
+            // updVehBtn
             // 
-            this.button2.BackgroundImage = global::T_HUB.Properties.Resources.updVeh;
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(664, 141);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(70, 70);
-            this.button2.TabIndex = 9;
-            this.button2.UseVisualStyleBackColor = true;
+            this.updVehBtn.BackgroundImage = global::T_HUB.Properties.Resources.updVeh;
+            this.updVehBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.updVehBtn.FlatAppearance.BorderSize = 0;
+            this.updVehBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.updVehBtn.Location = new System.Drawing.Point(664, 141);
+            this.updVehBtn.Name = "updVehBtn";
+            this.updVehBtn.Size = new System.Drawing.Size(70, 70);
+            this.updVehBtn.TabIndex = 9;
+            this.updVehBtn.UseVisualStyleBackColor = true;
+            this.updVehBtn.Click += new System.EventHandler(this.updVehBtn_Click);
             // 
-            // button1
+            // addVehBtn
             // 
-            this.button1.BackgroundImage = global::T_HUB.Properties.Resources.addVeh;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(664, 65);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(70, 70);
-            this.button1.TabIndex = 9;
-            this.button1.UseVisualStyleBackColor = true;
+            this.addVehBtn.BackgroundImage = global::T_HUB.Properties.Resources.addVeh;
+            this.addVehBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.addVehBtn.FlatAppearance.BorderSize = 0;
+            this.addVehBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.addVehBtn.Location = new System.Drawing.Point(664, 65);
+            this.addVehBtn.Name = "addVehBtn";
+            this.addVehBtn.Size = new System.Drawing.Size(70, 70);
+            this.addVehBtn.TabIndex = 9;
+            this.addVehBtn.UseVisualStyleBackColor = true;
+            this.addVehBtn.Click += new System.EventHandler(this.addVehBtn_Click);
             // 
             // vehsList
             // 
@@ -487,8 +492,10 @@ namespace T_HUB
             this.maxPass,
             this.maxWg,
             this.maxVol});
+            this.vehsList.FullRowSelect = true;
             this.vehsList.HideSelection = false;
             this.vehsList.Location = new System.Drawing.Point(29, 65);
+            this.vehsList.MultiSelect = false;
             this.vehsList.Name = "vehsList";
             this.vehsList.Size = new System.Drawing.Size(620, 373);
             this.vehsList.SmallImageList = this.imageList1;
@@ -499,6 +506,7 @@ namespace T_HUB
             // image
             // 
             this.image.Text = "Type";
+            this.image.Width = 50;
             // 
             // licPlt
             // 
@@ -510,7 +518,7 @@ namespace T_HUB
             // 
             this.mod.Text = "Model";
             this.mod.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.mod.Width = 100;
+            this.mod.Width = 120;
             // 
             // kmTot
             // 
@@ -525,7 +533,7 @@ namespace T_HUB
             // 
             // maxWg
             // 
-            this.maxWg.Text = "Weight (max)";
+            this.maxWg.Text = "Weigth (max)";
             this.maxWg.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.maxWg.Width = 100;
             // 
@@ -687,12 +695,12 @@ namespace T_HUB
         private System.Windows.Forms.ColumnHeader maxVol;
         private System.Windows.Forms.Button endRideBtn;
         private System.Windows.Forms.ColumnHeader licenPlt;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button expVehBtn;
+        private System.Windows.Forms.Button impVehBtn;
+        private System.Windows.Forms.Button delVehBtn;
+        private System.Windows.Forms.Button updVehBtn;
+        private System.Windows.Forms.Button addVehBtn;
+        private System.Windows.Forms.ComboBox viewCmb;
         private System.Windows.Forms.Label label1;
     }
 }

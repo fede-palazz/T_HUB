@@ -5,7 +5,7 @@ using T_HUB.Model;
 
 namespace T_HUB.Dao
 {
-    interface RideDao
+    public interface RideDao
     {
 
         /// <summary>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace T_HUB.Model {
-    class Car : Vehicle {
+    public class Car : Vehicle {
 
         /// <summary>
         /// Maximum number of passengers
@@ -14,5 +14,12 @@ namespace T_HUB.Model {
             base(licPlt, gasKm, priceKm, mod) {
             this.MaxPass = maxPass;
         }
+
+        public Car(string licPlt, double gasKm, double priceKm, int totalKm, int maxPass, 
+            string mod = null) : base(licPlt, gasKm, priceKm, totalKm, mod)
+        {
+            this.MaxPass = maxPass;
+        }
     }
 }
+

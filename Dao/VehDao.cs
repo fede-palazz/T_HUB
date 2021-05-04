@@ -4,7 +4,7 @@ using System.Text;
 using T_HUB.Model;
 
 namespace T_HUB.Dao {
-    interface VehDao {
+    public interface VehDao {
 
         /// <summary>
         /// Registers a new Vehicle
@@ -22,8 +22,9 @@ namespace T_HUB.Dao {
         /// <summary>
         /// Updates the info of an existing vehicle
         /// </summary>
+        /// <param name="licPlt">License plate</param>
         /// <param name="veh">Updated vehicle</param>
-        void UpdVeh(Vehicle veh);
+        void UpdVeh(string licPlt, Vehicle veh);
 
         /// <summary>
         /// Returns the full vehicles list
@@ -55,5 +56,12 @@ namespace T_HUB.Dao {
         /// </summary>
         /// <param name="vehs">Vehicles list to load</param>
         void LoadVehs(List<Vehicle> vehs);
+
+        /// <summary>
+        /// Returns the vehicle type
+        /// </summary>
+        /// <param name="veh">Vehicle object</param>
+        /// <returns>{ "car", "truck", "van" }</returns>
+        string Type(Vehicle veh);
     }
 }

@@ -17,14 +17,20 @@ namespace T_HUB.Dao
 
         public void AddVeh(Vehicle veh)
         {
-            if (veh.GetType() == typeof(Car))
-                vehs.Add(new Car(veh.LicPlt, veh.GasKm, veh.PriceKm, ((Car) veh).MaxPass, veh.Mod));
-            else if (veh.GetType() == typeof(Truck))
-                vehs.Add(new Truck(veh.LicPlt, veh.GasKm, veh.PriceKm, ((Truck) veh).MaxWg,
-                    ((Truck) veh).MaxVol, veh.Mod));
-            else if (veh.GetType() == typeof(Van))
-                vehs.Add(new Van(veh.LicPlt, veh.GasKm, veh.PriceKm, ((Van) veh).MaxWg,
-                    ((Van) veh).MaxVol, ((Van) veh).MaxPass, veh.Mod));
+            switch (Type(veh))
+            {
+                case "car":
+                    vehs.Add(new Car(veh.LicPlt, veh.GasKm, veh.PriceKm, ((Car) veh).MaxPass, veh.Mod));
+                    break;
+                case "truck":
+                    vehs.Add(new Truck(veh.LicPlt, veh.GasKm, veh.PriceKm, ((Truck) veh).MaxWg,
+                                        ((Truck) veh).MaxVol, veh.Mod));
+                    break;
+                case "van":
+                    vehs.Add(new Van(veh.LicPlt, veh.GasKm, veh.PriceKm, ((Van) veh).MaxWg,
+                                        ((Van) veh).MaxVol, ((Van) veh).MaxPass, veh.Mod));
+                    break;
+            }
         }
 
         public bool IsPresent(string licPlt)
@@ -72,28 +78,41 @@ namespace T_HUB.Dao
                 this.vehs.Add(v);
         }
 
-        public void UpdVeh(Vehicle veh)
+        public void UpdVeh(string licPlt, Vehicle veh)
         {
-            Vehicle v = this.GetVeh(veh.LicPlt);
+            Vehicle v = this.GetVeh(licPlt);
 
             v.Mod = veh.Mod;
+            v.GasKm = veh.GasKm;
+            v.PriceKm = veh.PriceKm;
             v.TotalKm = veh.TotalKm;
             // Check vehicle type
-            if (v.GetType() == typeof(Car))
-                (v as Car).MaxPass = (veh as Car).MaxPass;
-            else if (v.GetType() == typeof(Truck))
+            switch (Type(veh))
             {
-                (v as Truck).MaxWg = (veh as Truck).MaxWg;
-                (v as Truck).MaxVol = (veh as Truck).MaxVol;
+                case "car":
+                    (v as Car).MaxPass = (veh as Car).MaxPass;
+                    break;
+                case "truck":
+                    (v as Truck).MaxWg = (veh as Truck).MaxWg;
+                    (v as Truck).MaxVol = (veh as Truck).MaxVol;
+                    break;
+                case "van":
+                    (v as Van).MaxPass = (veh as Van).MaxPass;
+                    (v as Van).MaxWg = (veh as Van).MaxWg;
+                    (v as Van).MaxVol = (veh as Van).MaxVol;
+                    break;
             }
-            else if (v.GetType() == typeof(Van))
-            {
-                (v as Van).MaxPass = (veh as Van).MaxPass;
-                (v as Van).MaxWg = (veh as Van).MaxWg;
-                (v as Van).MaxVol = (veh as Van).MaxVol;
-            }
-            return;
+        }
 
+        public string Type(Vehicle veh)
+        {
+            if (veh.GetType() == typeof(Car))
+                return "car";
+            else if (veh.GetType() == typeof(Truck))
+                return "truck";
+            else if (veh.GetType() == typeof(Van))
+                return "van";
+            return null;
         }
     }
 }

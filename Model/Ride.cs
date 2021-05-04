@@ -4,7 +4,7 @@ using System.Text;
 
 namespace T_HUB.Model
 {
-    class Ride
+    public class Ride
     {
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace T_HUB.Model
         /// <summary>
         /// Km to be travelled for this ride
         /// </summary>
-        public double Km { get; }
+        public int Km { get; }
 
         /// <summary>
         /// Starting time of the ride
@@ -41,7 +41,7 @@ namespace T_HUB.Model
         /// </summary>
         public DateTime EndTm { get; set; }
 
-        public Ride(string vehType, string vehLicPlt, double km, DateTime startTm, DateTime endTm,
+        public Ride(string vehType, string vehLicPlt, int km, DateTime startTm, DateTime endTm,
             double startPrc = 0)
         {
             VehType = vehType;
@@ -53,7 +53,7 @@ namespace T_HUB.Model
             EndPrc = 0;
         }
 
-        public Ride(string vehType, string vehLicPlt, double km, DateTime startTm, DateTime endTm, 
+        public Ride(string vehType, string vehLicPlt, int km, DateTime startTm, DateTime endTm, 
             double endPrc, double startPrc = 0)
         {
             VehType = vehType;

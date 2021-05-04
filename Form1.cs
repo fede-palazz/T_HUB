@@ -28,7 +28,7 @@ namespace T_HUB
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            hub = new THubImpl();
+            #region Graphics
             // External bands colors
             titlePnl.BackColor = ColorTranslator.FromHtml("#263238");
             titleLbl.ForeColor = ColorTranslator.FromHtml("#eceff1");
@@ -43,14 +43,12 @@ namespace T_HUB
             addRideBtn.BackColor = ColorTranslator.FromHtml("#263238");
             endRideBtn.BackColor = ColorTranslator.FromHtml("#263238");
 
+            #endregion
+
+            hub = new THubImpl();
             dashPnl.BringToFront();
             panel = "dash";
-
-
-            hub.AddVeh(new Car("ABC", 2, 0.45, 5, "Audi a3 sportback"));
-            hub.AddVeh(new Truck("DFG", 3, 0.45, 1267.45, 400.5, "Fiat panda"));
-            hub.AddVeh(new Van("XYZ", 0.34, 0.56, 800.2, 400, 8, "Pongo"));
-
+            viewCmb.SelectedIndex = 0;
         }
 
         #region Navbar
@@ -128,16 +126,117 @@ namespace T_HUB
         private void RefreshVehsList()
         {
             vehsList.Items.Clear(); // Removes all vehicles
-            foreach 
+            foreach (Vehicle v in hub.GetVehs())
+                DisplayVeh(v);
         }
 
-        private void LoadVehs()
+        /// <summary>
+        /// Displays the vehicle in the listview
+        /// </summary>
+        /// <param name="veh">Vehicle to display</param>
+        private void DisplayVeh(Vehicle veh)
         {
+            ListViewItem row = null; // Listview row
 
+            switch (hub.Type(veh))
+            {
+                case "car":
+                    // Vehicle's parameters
+                    string[] carParam = {"", veh.LicPlt, veh.Mod, veh.TotalKm + "",
+                        ((Car)veh).MaxPass + "", "-", "-"};
+                    // Check availability
+                    if (hub.IsAvailable(veh.LicPlt))
+                        row = new ListViewItem(carParam, 0);
+                    else
+                        row = new ListViewItem(carParam, 3);
+                    break;
+                case "truck":
+                    // Vehicle's parameters
+                    string[] truckParam = {"", veh.LicPlt, veh.Mod, veh.TotalKm + "",
+                        "-", ((Truck)veh).MaxWg + "", ((Truck)veh).MaxVol + "" };
+                    // Check availability
+                    if (hub.IsAvailable(veh.LicPlt))
+                        row = new ListViewItem(truckParam, 1);
+                    else
+                        row = new ListViewItem(truckParam, 4);
+                    break;
+                case "van":
+                    // Vehicle's parameters
+                    string[] vanParam = {"", veh.LicPlt, veh.Mod, veh.TotalKm + "",
+                        ((Van)veh).MaxPass + "", ((Van)veh).MaxWg + "", ((Van)veh).MaxVol + "" };
+                    // Check availability
+                    if (hub.IsAvailable(veh.LicPlt))
+                        row = new ListViewItem(vanParam, 2);
+                    else
+                        row = new ListViewItem(vanParam, 5);
+                    break;
+            }
+            vehsList.Items.Add(row);
+        }
+
+        private void addVehBtn_Click(object sender, EventArgs e)
+        {
+            int vehsCount = hub.GetVehs().Count;
+            // Shows the form
+            using (VehInfo vehInfo = new VehInfo(hub))
+            {
+                vehInfo.ShowDialog();
+            }
+            if (hub.GetVehs().Count != vehsCount) // Vehicle added
+                RefreshVehsList(); // Refresh the list
+        }
+
+        private void delVehBtn_Click(object sender, EventArgs e)
+        {
+            if (vehsList.Items.Count > 0) // At least one vehicle in the list
+            {
+                // Gets the license plate of the selected vehicle
+                string licPlt = vehsList.SelectedItems[0].SubItems[1].Text;
+                // Removes it
+                hub.DelVeh(licPlt);
+                vehsList.SelectedItems[0].Remove();
+            }
+        }
+
+        private void updVehBtn_Click(object sender, EventArgs e)
+        {
+            string licPlt = null;
+            if (vehsList.Items.Count > 0)
+                licPlt = vehsList.SelectedItems[0].SubItems[1].Text;
+            if (!string.IsNullOrEmpty(licPlt))
+            {
+                using (VehInfo vehInfo = new VehInfo(hub, licPlt))
+                {
+                    vehInfo.ShowDialog();
+                }
+                RefreshVehsList();
+            }
+        }
+
+        
+
+        private void viewCmb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            vehsList.Items.Clear();
+
+            switch (viewCmb.SelectedIndex)
+            {
+                case 0: // All vehicles
+                    RefreshVehsList();
+                    break;
+                case 1: // Available vehicles
+                    foreach (Vehicle v in hub.GetVehs())
+                        if (hub.IsAvailable(v.LicPlt))
+                            DisplayVeh(v);
+                    break;
+                case 2: // Non available vehicles
+                    foreach (Vehicle v in hub.GetVehs())
+                        if (!hub.IsAvailable(v.LicPlt))
+                            DisplayVeh(v);
+                    break;
+            }
         }
 
         #endregion
-
-
     }
 }

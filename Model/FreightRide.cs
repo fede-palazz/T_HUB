@@ -4,7 +4,7 @@ using System.Text;
 
 namespace T_HUB.Model
 {
-    class FreightRide : Ride
+    public class FreightRide : Ride
     {
 
         /// <summary>
@@ -17,7 +17,7 @@ namespace T_HUB.Model
         /// </summary>
         public double Vol { get; }
 
-        public FreightRide(string vehType, string vehLicPlt, double km, DateTime startTm,
+        public FreightRide(string vehType, string vehLicPlt, int km, DateTime startTm,
             DateTime endTm, double wg, double vol, double startPrc = 0) :
             base(vehType, vehLicPlt, km, startTm, endTm, startPrc)
         {

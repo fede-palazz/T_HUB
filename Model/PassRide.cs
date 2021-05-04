@@ -4,7 +4,7 @@ using System.Text;
 
 namespace T_HUB.Model
 {
-    class PassRide : Ride
+    public class PassRide : Ride
     {
 
         /// <summary>
@@ -12,7 +12,7 @@ namespace T_HUB.Model
         /// </summary>
         public int NumPass { get; }
 
-        public PassRide(string vehType, string vehLicPlt, double km, DateTime startTm, DateTime endTm,
+        public PassRide(string vehType, string vehLicPlt, int km, DateTime startTm, DateTime endTm,
             int numPass, double startPrc = 0) : base(vehType, vehLicPlt, km, startTm, endTm, startPrc)
         {
             this.NumPass = numPass;

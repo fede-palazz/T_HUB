@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace T_HUB.Model {
-    class Vehicle {
+    public class Vehicle {
 
         /// <summary>
         /// Vehicle model
@@ -28,7 +28,7 @@ namespace T_HUB.Model {
         /// <summary>
         /// Total Km traveled
         /// </summary>
-        public double TotalKm { get; set; }
+        public int TotalKm { get; set; }
 
         public Vehicle(string licPlt, double gasKm, double priceKm, string mod = null) {
             this.LicPlt = licPlt;
@@ -38,7 +38,7 @@ namespace T_HUB.Model {
             this.TotalKm = 0;
         }
 
-        public Vehicle(string licPlt, double gasKm, double priceKm, double totalKm, string mod = null)
+        public Vehicle(string licPlt, double gasKm, double priceKm, int totalKm, string mod = null)
         {
             this.LicPlt = licPlt;
             this.GasKm = gasKm;

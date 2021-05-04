@@ -19,8 +19,12 @@ namespace T_HUB.Dao
 
         public void AddRide(Ride ride)
         {
-            this.rides.Add(new Ride(ride.VehType, ride.VehLicPlt, ride.Km, ride.StartTm,
-                ride.EndTm, ride.StartPrc));
+            if (ride.GetType() == typeof(PassRide))
+                this.rides.Add(new PassRide(ride.VehType, ride.VehLicPlt, ride.Km, ride.StartTm,
+                    ride.EndTm, (ride as PassRide).NumPass, ride.StartPrc));
+            else if (ride.GetType() == typeof(FreightRide))
+                this.rides.Add(new FreightRide(ride.VehType, ride.VehLicPlt, ride.Km, ride.StartTm,
+                    ride.EndTm, (ride as FreightRide).Wg, (ride as FreightRide).Vol, ride.StartPrc));
         }
 
         public List<Ride> DelComplRides()

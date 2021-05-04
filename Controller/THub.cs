@@ -5,20 +5,14 @@ using T_HUB.Model;
 
 namespace T_HUB.Controller
 {
-    interface THub
+    public interface THub
     {
 
         /// <summary>
-        /// Registers a new passengers ride
+        /// Registers a new ride
         /// </summary>
-        /// <param name="ride"></param>
-        void AddRide(PassRide ride);
-
-        /// <summary>
-        /// Registers a new freight ride
-        /// </summary>
-        /// <param name="ride"></param>
-        void AddRide(FreightRide ride);
+        /// <param name="ride">Ride object</param>
+        void AddRide(Ride ride);
 
         /// <summary>
         /// Adds a new vehicle
@@ -29,8 +23,9 @@ namespace T_HUB.Controller
         /// <summary>
         /// Updates the vehicle info
         /// </summary>
+        /// <param name="licPlt">License plate</param>
         /// <param name="veh">Updated vehicle</param>
-        void UpdVeh(Vehicle veh);
+        void UpdVeh(string licPlt, Vehicle veh);
 
         /// <summary>
         /// Delete the specified vehicle
@@ -43,6 +38,13 @@ namespace T_HUB.Controller
         /// </summary>
         /// <returns>Vehicles list</returns>
         List<Vehicle> GetVehs();
+
+        /// <summary>
+        /// Returns a specific vehicle
+        /// </summary>
+        /// <param name="licPlt">License plate</param>
+        /// <returns></returns>
+        Vehicle GetVeh(string licPlt);
 
         /// <summary>
         /// Returns true if the specified vehicle is available
@@ -104,6 +106,13 @@ namespace T_HUB.Controller
         /// </summary>
         /// <param name="path">file path</param>
         void LoadVehs(string path);
+
+        /// <summary>
+        /// Returns the type of the vehicle
+        /// </summary>
+        /// <param name="veh">Vehicle object</param>
+        /// <returns>{ "car", "truck", "van" }</returns>
+        string Type(Vehicle veh);
 
     }
 }

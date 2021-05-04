@@ -17,12 +17,7 @@ namespace T_HUB.Controller
             this.rideDao = new RideDaoImpl();
         }
 
-        public void AddRide(PassRide ride)
-        {
-            rideDao.AddRide(ride);
-        }
-
-        public void AddRide(FreightRide ride)
+        public void AddRide(Ride ride)
         {
             rideDao.AddRide(ride);
         }
@@ -62,6 +57,11 @@ namespace T_HUB.Controller
             return rideDao.GetRides();
         }
 
+        public Vehicle GetVeh(string licPlt)
+        {
+            return vehDao.GetVeh(licPlt);
+        }
+
         public List<Vehicle> GetVehs()
         {
             return vehDao.GetVehs();
@@ -92,9 +92,14 @@ namespace T_HUB.Controller
             throw new NotImplementedException();
         }
 
-        public void UpdVeh(Vehicle veh)
+        public string Type(Vehicle veh)
         {
-            vehDao.UpdVeh(veh);
+            return vehDao.Type(veh);
+        }
+
+        public void UpdVeh(string licPlt, Vehicle veh)
+        {
+            vehDao.UpdVeh(licPlt, veh);
         }
     }
 }

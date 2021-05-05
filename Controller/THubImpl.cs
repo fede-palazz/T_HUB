@@ -27,6 +27,31 @@ namespace T_HUB.Controller
             vehDao.AddVeh(veh);
         }
 
+        public int[] Availability()
+        {
+            int[] num = { 0, 0, 0 }; // Availability array
+
+            foreach (Vehicle v in this.GetVehs())
+            {
+                switch (Type(v))
+                {
+                    case "car":
+                        if (IsAvailable(v.LicPlt))
+                            num[0]++;
+                        break;
+                    case "truck":
+                        if (IsAvailable(v.LicPlt))
+                            num[1]++;
+                        break;
+                    case "van":
+                        if (IsAvailable(v.LicPlt))
+                            num[2]++;
+                        break;
+                }
+            }
+            return num;
+        }
+
         public List<Ride> DelComplRides()
         {
             return rideDao.DelComplRides();

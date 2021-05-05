@@ -53,10 +53,10 @@ namespace T_HUB
             this.dashCarPtb = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.truckCountLbl = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.dashTruckPtb = new System.Windows.Forms.PictureBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.vanCountLbl = new System.Windows.Forms.Label();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.dashVanPtb = new System.Windows.Forms.PictureBox();
             this.vehsPnl = new System.Windows.Forms.Panel();
             this.viewCmb = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -86,9 +86,9 @@ namespace T_HUB
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dashCarPtb)).BeginInit();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dashTruckPtb)).BeginInit();
             this.panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dashVanPtb)).BeginInit();
             this.vehsPnl.SuspendLayout();
             this.navBarPnl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.navDashPtb)).BeginInit();
@@ -159,10 +159,10 @@ namespace T_HUB
             this.dashPnl.Controls.Add(this.currentRidesList);
             this.dashPnl.Controls.Add(this.flowLayoutPanel1);
             this.dashPnl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dashPnl.Location = new System.Drawing.Point(0, 0);
+            this.dashPnl.Location = new System.Drawing.Point(0, 65);
             this.dashPnl.Margin = new System.Windows.Forms.Padding(0);
             this.dashPnl.Name = "dashPnl";
-            this.dashPnl.Size = new System.Drawing.Size(763, 600);
+            this.dashPnl.Size = new System.Drawing.Size(763, 535);
             this.dashPnl.TabIndex = 8;
             // 
             // endRideBtn
@@ -188,6 +188,7 @@ namespace T_HUB
             this.addRideBtn.Size = new System.Drawing.Size(70, 70);
             this.addRideBtn.TabIndex = 8;
             this.addRideBtn.UseVisualStyleBackColor = true;
+            this.addRideBtn.Click += new System.EventHandler(this.addRideBtn_Click);
             // 
             // noRidesLbl
             // 
@@ -314,7 +315,7 @@ namespace T_HUB
             // 
             this.panel3.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.panel3.Controls.Add(this.truckCountLbl);
-            this.panel3.Controls.Add(this.pictureBox2);
+            this.panel3.Controls.Add(this.dashTruckPtb);
             this.panel3.Location = new System.Drawing.Point(301, 13);
             this.panel3.Margin = new System.Windows.Forms.Padding(100, 3, 3, 3);
             this.panel3.Name = "panel3";
@@ -332,23 +333,23 @@ namespace T_HUB
             this.truckCountLbl.TabIndex = 4;
             this.truckCountLbl.Text = "0";
             // 
-            // pictureBox2
+            // dashTruckPtb
             // 
-            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.Image = global::T_HUB.Properties.Resources.truck_red;
-            this.pictureBox2.Location = new System.Drawing.Point(9, 9);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(5, 3, 5, 5);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(80, 80);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox2.TabIndex = 3;
-            this.pictureBox2.TabStop = false;
+            this.dashTruckPtb.BackColor = System.Drawing.Color.Transparent;
+            this.dashTruckPtb.Image = global::T_HUB.Properties.Resources.truck_red;
+            this.dashTruckPtb.Location = new System.Drawing.Point(9, 9);
+            this.dashTruckPtb.Margin = new System.Windows.Forms.Padding(5, 3, 5, 5);
+            this.dashTruckPtb.Name = "dashTruckPtb";
+            this.dashTruckPtb.Size = new System.Drawing.Size(80, 80);
+            this.dashTruckPtb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.dashTruckPtb.TabIndex = 3;
+            this.dashTruckPtb.TabStop = false;
             // 
             // panel4
             // 
             this.panel4.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.panel4.Controls.Add(this.vanCountLbl);
-            this.panel4.Controls.Add(this.pictureBox3);
+            this.panel4.Controls.Add(this.dashVanPtb);
             this.panel4.Location = new System.Drawing.Point(502, 13);
             this.panel4.Margin = new System.Windows.Forms.Padding(100, 3, 3, 3);
             this.panel4.Name = "panel4";
@@ -366,17 +367,17 @@ namespace T_HUB
             this.vanCountLbl.TabIndex = 4;
             this.vanCountLbl.Text = "0";
             // 
-            // pictureBox3
+            // dashVanPtb
             // 
-            this.pictureBox3.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox3.Image = global::T_HUB.Properties.Resources.van_red;
-            this.pictureBox3.Location = new System.Drawing.Point(9, 9);
-            this.pictureBox3.Margin = new System.Windows.Forms.Padding(5, 3, 5, 5);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(80, 80);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox3.TabIndex = 3;
-            this.pictureBox3.TabStop = false;
+            this.dashVanPtb.BackColor = System.Drawing.Color.Transparent;
+            this.dashVanPtb.Image = global::T_HUB.Properties.Resources.van_red;
+            this.dashVanPtb.Location = new System.Drawing.Point(9, 9);
+            this.dashVanPtb.Margin = new System.Windows.Forms.Padding(5, 3, 5, 5);
+            this.dashVanPtb.Name = "dashVanPtb";
+            this.dashVanPtb.Size = new System.Drawing.Size(80, 80);
+            this.dashVanPtb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.dashVanPtb.TabIndex = 3;
+            this.dashVanPtb.TabStop = false;
             // 
             // vehsPnl
             // 
@@ -548,9 +549,9 @@ namespace T_HUB
             // 
             this.ridesPnl.BackColor = System.Drawing.Color.Sienna;
             this.ridesPnl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ridesPnl.Location = new System.Drawing.Point(0, 0);
+            this.ridesPnl.Location = new System.Drawing.Point(0, 65);
             this.ridesPnl.Name = "ridesPnl";
-            this.ridesPnl.Size = new System.Drawing.Size(763, 600);
+            this.ridesPnl.Size = new System.Drawing.Size(763, 535);
             this.ridesPnl.TabIndex = 0;
             // 
             // navBarPnl
@@ -618,10 +619,10 @@ namespace T_HUB
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(763, 600);
             this.Controls.Add(this.navBarPnl);
-            this.Controls.Add(this.vehsPnl);
-            this.Controls.Add(this.titlePnl);
             this.Controls.Add(this.dashPnl);
             this.Controls.Add(this.ridesPnl);
+            this.Controls.Add(this.vehsPnl);
+            this.Controls.Add(this.titlePnl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Form1";
@@ -641,10 +642,10 @@ namespace T_HUB
             ((System.ComponentModel.ISupportInitialize)(this.dashCarPtb)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dashTruckPtb)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dashVanPtb)).EndInit();
             this.vehsPnl.ResumeLayout(false);
             this.vehsPnl.PerformLayout();
             this.navBarPnl.ResumeLayout(false);
@@ -667,10 +668,10 @@ namespace T_HUB
         private System.Windows.Forms.PictureBox dashCarPtb;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label truckCountLbl;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox dashTruckPtb;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label vanCountLbl;
-        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.PictureBox dashVanPtb;
         private System.Windows.Forms.FlowLayoutPanel navBarPnl;
         private System.Windows.Forms.PictureBox navDashPtb;
         private System.Windows.Forms.PictureBox navVehsPtb;

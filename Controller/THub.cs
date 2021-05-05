@@ -54,6 +54,12 @@ namespace T_HUB.Controller
         bool IsAvailable(string licPlt);
 
         /// <summary>
+        /// Returns the total number of available vehicles for each category
+        /// </summary>
+        /// <returns>Availability number of each type of vehicle</returns>
+        int[] Availability();
+
+        /// <summary>
         /// Returns the current rides list
         /// </summary>
         /// <returns>Current rides list</returns>

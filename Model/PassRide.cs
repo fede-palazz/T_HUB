@@ -18,5 +18,11 @@ namespace T_HUB.Model
             this.NumPass = numPass;
         }
 
+        public PassRide(string vehType, string vehLicPlt, int km, DateTime startTm, DateTime endTm, 
+            double endPrc, int numPass, double startPrc = 0) : base(vehType, vehLicPlt, km, startTm, endTm, endPrc, startPrc)
+        {
+            this.NumPass = numPass;
+        }
+
     }
 }

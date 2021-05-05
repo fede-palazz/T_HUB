@@ -24,5 +24,13 @@ namespace T_HUB.Model
             this.Wg = wg;
             this.Vol = vol;
         }
+
+         public FreightRide(string vehType, string vehLicPlt, int km, DateTime startTm,
+           DateTime endTm, double endPrc, double wg, double vol, double startPrc = 0) :
+           base(vehType, vehLicPlt, km, startTm, endTm, endPrc, startPrc)
+        {
+            this.Wg = wg;
+            this.Vol = vol;
+        }
     }
 }

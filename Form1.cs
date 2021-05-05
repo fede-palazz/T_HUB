@@ -38,8 +38,7 @@ namespace T_HUB
             dashPnl.BackColor = ColorTranslator.FromHtml("#90a4ae");
             vehsPnl.BackColor = ColorTranslator.FromHtml("#90a4ae");
             ridesPnl.BackColor = ColorTranslator.FromHtml("#90a4ae");
-            // Labels colors
-            carCountLbl.ForeColor = ColorTranslator.FromHtml("#455a64");
+            
             // Buttons colors
             addRideBtn.BackColor = ColorTranslator.FromHtml("#263238");
             endRideBtn.BackColor = ColorTranslator.FromHtml("#263238");
@@ -189,8 +188,8 @@ namespace T_HUB
             {
                 vehInfo.ShowDialog();
             }
-            if (hub.GetVehs().Count != vehsCount) // Vehicle added
-                RefreshVehsList(); // Refresh the list
+            RefreshVehsList();
+            RefreshAvailability();
         }
 
         private void delVehBtn_Click(object sender, EventArgs e)
@@ -202,6 +201,7 @@ namespace T_HUB
                 // Removes it
                 hub.DelVeh(licPlt);
                 vehsList.SelectedItems[0].Remove();
+                RefreshAvailability();
             }
         }
 
@@ -219,8 +219,6 @@ namespace T_HUB
                 RefreshVehsList();
             }
         }
-
-        
 
         private void viewCmb_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -272,5 +270,47 @@ namespace T_HUB
         }
 
         #endregion
+
+        #region Dashboard
+
+        /// <summary>
+        /// Refreshs vehicles availability in the dashboard panel
+        /// </summary>
+        private void RefreshAvailability()
+        {
+            int[] num = hub.Availability();
+
+            // Labels update
+            carCountLbl.Text = num[0].ToString();
+            truckCountLbl.Text = num[1].ToString();
+            vanCountLbl.Text = num[2].ToString();
+
+            // Pictureboxes update
+            if (num[0] > 0)
+                dashCarPtb.Image = T_HUB.Properties.Resources.car;
+            else
+                dashCarPtb.Image = T_HUB.Properties.Resources.car_red;
+            if (num[1] > 0)
+                dashTruckPtb.Image = T_HUB.Properties.Resources.truck;
+            else
+                dashTruckPtb.Image = T_HUB.Properties.Resources.truck_red;
+            if (num[2] > 0)
+                dashVanPtb.Image = T_HUB.Properties.Resources.van;
+            else
+                dashVanPtb.Image = T_HUB.Properties.Resources.van_red;
+        }
+
+
+
+        #endregion
+
+        private void addRideBtn_Click(object sender, EventArgs e)
+        {
+            bool added = false;
+            using (NewRide ride = new NewRide(hub, added))
+            {
+                ride.ShowDialog();
+            }
+        }
     }
 }

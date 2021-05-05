@@ -15,6 +15,12 @@ namespace T_HUB.Dao
         void AddRide(Ride ride);
 
         /// <summary>
+        /// Registers a completed ride
+        /// </summary>
+        /// <param name="ride">Completed ride</param>
+        void AddComplRide(Ride ride);
+
+        /// <summary>
         /// Ends a ride
         /// </summary>
         /// <param name="licPlt">License plate of the associated vehicle</param>

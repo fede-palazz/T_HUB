@@ -97,24 +97,19 @@ namespace T_HUB.Controller
             return rideDao.isAvailable(licPlt);
         }
 
-        public void LoadRides(string path)
+        public void LoadRides(List<Ride> rides)
         {
-            throw new NotImplementedException();
+            foreach (Ride r in rides)
+                rideDao.AddComplRide(r);
         }
 
-        public void LoadVehs(string path)
+        public void LoadVehs(List<Vehicle> vehs)
         {
-            throw new NotImplementedException();
-        }
-
-        public void SaveRides(string path)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SaveVehs(string path)
-        {
-            throw new NotImplementedException();
+            foreach (Vehicle v in vehs)
+            {
+                if (!vehDao.IsPresent(v.LicPlt))
+                    vehDao.AddVeh(v);
+            }
         }
 
         public string Type(Vehicle veh)

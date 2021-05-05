@@ -159,10 +159,10 @@ namespace T_HUB
             this.dashPnl.Controls.Add(this.currentRidesList);
             this.dashPnl.Controls.Add(this.flowLayoutPanel1);
             this.dashPnl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dashPnl.Location = new System.Drawing.Point(0, 65);
+            this.dashPnl.Location = new System.Drawing.Point(0, 0);
             this.dashPnl.Margin = new System.Windows.Forms.Padding(0);
             this.dashPnl.Name = "dashPnl";
-            this.dashPnl.Size = new System.Drawing.Size(763, 535);
+            this.dashPnl.Size = new System.Drawing.Size(763, 600);
             this.dashPnl.TabIndex = 8;
             // 
             // endRideBtn
@@ -431,6 +431,7 @@ namespace T_HUB
             this.expVehBtn.Size = new System.Drawing.Size(70, 70);
             this.expVehBtn.TabIndex = 9;
             this.expVehBtn.UseVisualStyleBackColor = true;
+            this.expVehBtn.Click += new System.EventHandler(this.expVehBtn_Click);
             // 
             // impVehBtn
             // 
@@ -443,6 +444,7 @@ namespace T_HUB
             this.impVehBtn.Size = new System.Drawing.Size(70, 70);
             this.impVehBtn.TabIndex = 9;
             this.impVehBtn.UseVisualStyleBackColor = true;
+            this.impVehBtn.Click += new System.EventHandler(this.impVehBtn_Click);
             // 
             // delVehBtn
             // 
@@ -549,9 +551,9 @@ namespace T_HUB
             // 
             this.ridesPnl.BackColor = System.Drawing.Color.Sienna;
             this.ridesPnl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ridesPnl.Location = new System.Drawing.Point(0, 65);
+            this.ridesPnl.Location = new System.Drawing.Point(0, 0);
             this.ridesPnl.Name = "ridesPnl";
-            this.ridesPnl.Size = new System.Drawing.Size(763, 535);
+            this.ridesPnl.Size = new System.Drawing.Size(763, 600);
             this.ridesPnl.TabIndex = 0;
             // 
             // navBarPnl
@@ -619,10 +621,10 @@ namespace T_HUB
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(763, 600);
             this.Controls.Add(this.navBarPnl);
-            this.Controls.Add(this.dashPnl);
-            this.Controls.Add(this.ridesPnl);
             this.Controls.Add(this.vehsPnl);
             this.Controls.Add(this.titlePnl);
+            this.Controls.Add(this.dashPnl);
+            this.Controls.Add(this.ridesPnl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Form1";

@@ -90,28 +90,16 @@ namespace T_HUB.Controller
         List<Ride> DelComplRides();
 
         /// <summary>
-        /// Exports the current and completed rides lists to a file
+        /// Imports a completed rides list
         /// </summary>
-        /// <param name="path">file path</param>
-        void SaveRides(string path);
+        /// <param name="rides">Rides list</param>
+        void LoadRides(List<Ride> rides);
 
         /// <summary>
-        /// Imports the current and completed rides lists from a file
+        /// Imports a vehicles list
         /// </summary>
-        /// <param name="path">file path</param>
-        void LoadRides(string path);
-
-        /// <summary>
-        /// Exports the vehicles list to a file
-        /// </summary>
-        /// <param name="path">file path</param>
-        void SaveVehs(string path);
-
-        /// <summary>
-        /// Imports the vehicles list from a file
-        /// </summary>
-        /// <param name="path">file path</param>
-        void LoadVehs(string path);
+        /// <param name="vehs">Vehicles list</param>
+        void LoadVehs(List<Vehicle> vehs);
 
         /// <summary>
         /// Returns the type of the vehicle

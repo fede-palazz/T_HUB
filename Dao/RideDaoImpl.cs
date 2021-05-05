@@ -27,6 +27,16 @@ namespace T_HUB.Dao
                     ride.EndTm, (ride as FreightRide).Wg, (ride as FreightRide).Vol, ride.StartPrc));
         }
 
+        public void AddComplRide(Ride ride)
+        {
+            if (ride.GetType() == typeof(PassRide))
+                this.complRides.Add(new PassRide(ride.VehType, ride.VehLicPlt, ride.Km, ride.StartTm,
+                    ride.EndTm, ride.EndPrc, (ride as PassRide).NumPass, ride.StartPrc));
+            else if (ride.GetType() == typeof(FreightRide))
+                this.complRides.Add(new FreightRide(ride.VehType, ride.VehLicPlt, ride.Km, ride.StartTm,
+                    ride.EndTm, ride.EndPrc, (ride as FreightRide).Wg, (ride as FreightRide).Vol, ride.StartPrc));
+        }
+
         public List<Ride> DelComplRides()
         {
             List<Ride> temp = new List<Ride>(complRides);
@@ -77,7 +87,7 @@ namespace T_HUB.Dao
         {
             foreach (Ride r in rides)
             {
-                complRides.Add(new Ride(r.VehType, r.VehLicPlt, r.Km, r.StartTm, r.EndTm, r.StartPrc));
+                complRides.Add(new Ride(r.VehType, r.VehLicPlt, r.Km, r.StartTm, r.EndTm, r.EndPrc, r.StartPrc));
             }
         }
 

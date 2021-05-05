@@ -38,7 +38,7 @@ namespace T_HUB
             dashPnl.BackColor = ColorTranslator.FromHtml("#90a4ae");
             vehsPnl.BackColor = ColorTranslator.FromHtml("#90a4ae");
             ridesPnl.BackColor = ColorTranslator.FromHtml("#90a4ae");
-            
+
             // Buttons colors
             addRideBtn.BackColor = ColorTranslator.FromHtml("#263238");
             endRideBtn.BackColor = ColorTranslator.FromHtml("#263238");
@@ -198,10 +198,13 @@ namespace T_HUB
             {
                 // Gets the license plate of the selected vehicle
                 string licPlt = vehsList.SelectedItems[0].SubItems[1].Text;
-                // Removes it
-                hub.DelVeh(licPlt);
-                vehsList.SelectedItems[0].Remove();
-                RefreshAvailability();
+                if (!string.IsNullOrEmpty(licPlt) && hub.IsAvailable(licPlt)) // If available
+                {
+                    // Removes it
+                    hub.DelVeh(licPlt);
+                    vehsList.SelectedItems[0].Remove();
+                    RefreshAvailability();
+                }
             }
         }
 
@@ -210,7 +213,7 @@ namespace T_HUB
             string licPlt = null;
             if (vehsList.Items.Count > 0)
                 licPlt = vehsList.SelectedItems[0].SubItems[1].Text;
-            if (!string.IsNullOrEmpty(licPlt))
+            if (!string.IsNullOrEmpty(licPlt) && hub.IsAvailable(licPlt))
             {
                 using (VehInfo vehInfo = new VehInfo(hub, licPlt))
                 {
@@ -269,6 +272,44 @@ namespace T_HUB
             vehsList.Sort();
         }
 
+        private void expVehBtn_Click(object sender, EventArgs e)
+        {
+            if (vehsList.Items.Count > 0)
+            {
+                string path = ""; // File path
+
+                using (SaveFileDialog dialog = new SaveFileDialog())
+                {
+                    dialog.Filter = "JSOn File|*.json";
+                    dialog.Title = "Export Vehicles";
+                    if (dialog.ShowDialog() == DialogResult.OK)
+                        path = dialog.FileName;
+                    else
+                        return;
+                }
+                // Selects vehicles to export
+                List<Vehicle> expVehs = new List<Vehicle>();
+                switch (viewCmb.SelectedIndex)
+                {
+                    case 0: // All
+                        expVehs = hub.GetVehs();
+                        break;
+                    case 1: // Available
+                        foreach (Vehicle v in hub.GetVehs())
+                            if (hub.IsAvailable(v.LicPlt))
+                                expVehs.Add(v);
+                        break;
+                    case 2: // Not available
+                        foreach (Vehicle v in hub.GetVehs())
+                            if (!hub.IsAvailable(v.LicPlt))
+                                expVehs.Add(v);
+                        break;
+                }
+                // Save to file
+                JsonUtil.WriteJArray(JsonUtil.VehsToJson(expVehs), path);
+            }
+        }
+
         #endregion
 
         #region Dashboard
@@ -302,7 +343,7 @@ namespace T_HUB
 
 
 
-        #endregion
+
 
         private void addRideBtn_Click(object sender, EventArgs e)
         {
@@ -311,6 +352,27 @@ namespace T_HUB
             {
                 ride.ShowDialog();
             }
+        }
+        #endregion
+
+        private void impVehBtn_Click(object sender, EventArgs e)
+        {
+            string path = ""; // File path
+            using (OpenFileDialog dialog = new OpenFileDialog())
+            {
+                dialog.Filter = "JSOn File|*.json";
+                dialog.Title = "Import Vehicles";
+                if (dialog.ShowDialog() == DialogResult.OK)
+                    path = dialog.FileName;
+                else
+                    return;
+            }
+
+            List<Vehicle> impVehs = JsonUtil.JsonToVehs(JsonUtil.ReadJArray(path));
+
+            hub.LoadVehs(impVehs);
+            RefreshVehsList();
+            RefreshAvailability();
         }
     }
 }

@@ -128,9 +128,9 @@ namespace T_HUB
             this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label3.Location = new System.Drawing.Point(387, 97);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(73, 21);
+            this.label3.Size = new System.Drawing.Size(99, 21);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Gas / Km";
+            this.label3.Text = "Gas / Km  [L]";
             // 
             // priceKmTxb
             // 
@@ -146,9 +146,9 @@ namespace T_HUB
             this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label4.Location = new System.Drawing.Point(40, 177);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(81, 21);
+            this.label4.Size = new System.Drawing.Size(108, 21);
             this.label4.TabIndex = 4;
-            this.label4.Text = "Price / Km";
+            this.label4.Text = "Price / Km  [€]";
             // 
             // totalKmTxb
             // 
@@ -226,9 +226,9 @@ namespace T_HUB
             this.label8.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label8.Location = new System.Drawing.Point(223, 269);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(90, 21);
+            this.label8.Size = new System.Drawing.Size(122, 21);
             this.label8.TabIndex = 4;
-            this.label8.Text = "Max weigth";
+            this.label8.Text = "Max weigth [Kg]";
             // 
             // maxVolTxb
             // 
@@ -244,9 +244,9 @@ namespace T_HUB
             this.label9.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label9.Location = new System.Drawing.Point(387, 269);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(95, 21);
+            this.label9.Size = new System.Drawing.Size(143, 21);
             this.label9.TabIndex = 4;
-            this.label9.Text = "Max volume";
+            this.label9.Text = "Max volume [m^3]\r\n";
             // 
             // saveBtn
             // 

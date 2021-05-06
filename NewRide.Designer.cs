@@ -257,9 +257,9 @@ namespace T_HUB
             this.label8.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label8.Location = new System.Drawing.Point(319, 25);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(63, 21);
+            this.label8.Size = new System.Drawing.Size(63, 42);
             this.label8.TabIndex = 5;
-            this.label8.Text = "Volume";
+            this.label8.Text = "Volume\r\n (m^3)";
             // 
             // wgTxb
             // 
@@ -276,9 +276,9 @@ namespace T_HUB
             this.label7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label7.Location = new System.Drawing.Point(34, 23);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(59, 21);
+            this.label7.Size = new System.Drawing.Size(59, 42);
             this.label7.TabIndex = 5;
-            this.label7.Text = "Weigth";
+            this.label7.Text = "Weigth\r\n  (Kg)";
             // 
             // panel1
             // 

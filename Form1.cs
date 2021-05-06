@@ -135,7 +135,7 @@ namespace T_HUB
 
         private void navRidesPtb_Click(object sender, EventArgs e)
         {
-            titleLbl.Text = "Rides";
+            titleLbl.Text = "Rides History";
             ridesPnl.BringToFront();
             // Reset buttons selections
             navDashPtb.Image = T_HUB.Properties.Resources.navbar_dash_unsel;

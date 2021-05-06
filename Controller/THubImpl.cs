@@ -72,6 +72,24 @@ namespace T_HUB.Controller
             rideDao.EndRide(licPlt, vehDao.GetVeh(licPlt).PriceKm);
         }
 
+        public List<Vehicle> GetAvailVehs()
+        {
+            List<Vehicle> temp = new List<Vehicle>();
+            foreach (Vehicle v in this.GetVehs())
+                if (this.IsAvailable(v.LicPlt))
+                    temp.Add(v);
+            return temp;
+        }
+
+        public List<Vehicle> GetNotAvailVehs()
+        {
+            List<Vehicle> temp = new List<Vehicle>();
+            foreach (Vehicle v in this.GetVehs())
+                if (!this.IsAvailable(v.LicPlt))
+                    temp.Add(v);
+            return temp;
+        }
+
         public List<Ride> GetComplRides()
         {
             return rideDao.GetComplRides();
@@ -120,6 +138,14 @@ namespace T_HUB.Controller
         public void UpdVeh(string licPlt, Vehicle veh)
         {
             vehDao.UpdVeh(licPlt, veh);
+        }
+
+        public Ride GetComplRide(string licPlt)
+        {
+            foreach (Ride r in this.GetComplRides())
+                if (r.VehLicPlt == licPlt)
+                    return r;
+            return null;
         }
     }
 }

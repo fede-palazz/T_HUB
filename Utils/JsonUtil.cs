@@ -9,7 +9,7 @@ using System.IO;
 
 namespace T_HUB.Utils
 {
-     public static class JsonUtil
+    public static class JsonUtil
     {
         /// <summary>
         /// Converts a list of vehicles to a JArray object
@@ -62,11 +62,23 @@ namespace T_HUB.Utils
         public static List<Vehicle> JsonToVehs(JArray array)
         {
             List<Vehicle> vehs = new List<Vehicle>();
+
+            if (array == null)
+                throw new Exception("File JSON non valido");
+
             foreach (JObject obj in array)
             {
+                if (obj == null || obj.GetValue("type") == null || obj.GetValue("licPlt") == null ||
+                    obj.GetValue("gasKm") == null || obj.GetValue("priceKm") == null ||
+                    obj.GetValue("mod") == null)
+                    throw new Exception("File JSON non valido");
+
                 switch (obj.GetValue("type").ToString()) // Type of vehicle
                 {
                     case "car":
+                        if (obj.GetValue("maxPass") == null)
+                            throw new Exception("File JSON non valido");
+
                         vehs.Add(new Car(obj.GetValue("licPlt").ToString(),
                                          double.Parse(obj.GetValue("gasKm").ToString()),
                                          double.Parse(obj.GetValue("priceKm").ToString()),
@@ -75,6 +87,9 @@ namespace T_HUB.Utils
                         break;
 
                     case "truck":
+                        if (obj.GetValue("maxWg") == null || obj.GetValue("maxVol") == null)
+                            throw new Exception("File JSON non valido");
+
                         vehs.Add(new Truck(obj.GetValue("licPlt").ToString(),
                                            double.Parse(obj.GetValue("gasKm").ToString()),
                                            double.Parse(obj.GetValue("priceKm").ToString()),
@@ -85,6 +100,10 @@ namespace T_HUB.Utils
                         break;
 
                     case "van":
+                        if (obj.GetValue("maxPass") == null || obj.GetValue("maxWg") == null ||
+                            obj.GetValue("maxVol") == null)
+                            throw new Exception("File JSON non valido");
+
                         vehs.Add(new Van(obj.GetValue("licPlt").ToString(),
                                            double.Parse(obj.GetValue("gasKm").ToString()),
                                            double.Parse(obj.GetValue("priceKm").ToString()),
@@ -96,6 +115,7 @@ namespace T_HUB.Utils
                         break;
                 }
             }
+
             return vehs;
         }
 
@@ -142,10 +162,21 @@ namespace T_HUB.Utils
         public static List<Ride> JsonToRides(JArray array)
         {
             List<Ride> rides = new List<Ride>();
+            if (array == null)
+                throw new Exception("File JSON non valido!");
             foreach (JObject obj in array)
             {
+                if (obj == null || obj.GetValue("vehType") == null || obj.GetValue("vehLicPlt") == null ||
+                    obj.GetValue("km") == null || obj.GetValue("startTm") == null ||
+                    obj.GetValue("endTm") == null || obj.GetValue("endPrc") == null ||
+                    obj.GetValue("startPrc") == null)
+                    throw new Exception("File JSON non valido!");
+
                 if (obj.ContainsKey("numPass")) // Passenger ride
                 {
+                    if (obj.GetValue("numPass") == null)
+                        throw new Exception("File JSON non valido!");
+
                     rides.Add(new PassRide(obj.GetValue("vehType").ToString(),
                                            obj.GetValue("vehLicPlt").ToString(),
                                            int.Parse(obj.GetValue("km").ToString()),
@@ -158,6 +189,9 @@ namespace T_HUB.Utils
 
                 else if (obj.ContainsKey("wg")) // Freight ride
                 {
+                    if (obj.GetValue("wg") == null || obj.GetValue("vol") == null)
+                        throw new Exception("File JSON non valido!");
+
                     rides.Add(new FreightRide(obj.GetValue("vehType").ToString(),
                                            obj.GetValue("vehLicPlt").ToString(),
                                            int.Parse(obj.GetValue("km").ToString()),
@@ -169,6 +203,7 @@ namespace T_HUB.Utils
                                            double.Parse(obj.GetValue("startPrc").ToString())));
                 }
             }
+
             return rides;
         }
 

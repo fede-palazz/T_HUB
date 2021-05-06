@@ -40,6 +40,18 @@ namespace T_HUB.Controller
         List<Vehicle> GetVehs();
 
         /// <summary>
+        /// Returns the list of the available vehicles
+        /// </summary>
+        /// <returns>List of available vehicles</returns>
+        List<Vehicle> GetAvailVehs();
+
+        /// <summary>
+        /// Returns the list of unavailable vehicles
+        /// </summary>
+        /// <returns>List of unavailable vehicles</returns>
+        List<Vehicle> GetNotAvailVehs();
+
+        /// <summary>
         /// Returns a specific vehicle
         /// </summary>
         /// <param name="licPlt">License plate</param>
@@ -70,6 +82,13 @@ namespace T_HUB.Controller
         /// </summary>
         /// <returns>Completed rides list</returns>
         List<Ride> GetComplRides();
+
+        /// <summary>
+        /// Return the specified completed ride
+        /// </summary>
+        /// <param name="licPlt">License plate</param>
+        /// <returns></returns>
+        Ride GetComplRide(string licPlt);
 
         /// <summary>
         /// Ends the specified ride

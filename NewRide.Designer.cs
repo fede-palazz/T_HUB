@@ -162,7 +162,7 @@ namespace T_HUB
             // 
             // startTmDtp
             // 
-            this.startTmDtp.CustomFormat = "dd/MM/yyyy hh:mm:ss";
+            this.startTmDtp.CustomFormat = "dd/MM/yyyy HH:mm:ss";
             this.startTmDtp.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.startTmDtp.Location = new System.Drawing.Point(115, 171);
             this.startTmDtp.Name = "startTmDtp";
@@ -182,7 +182,7 @@ namespace T_HUB
             // 
             // endTmDtp
             // 
-            this.endTmDtp.CustomFormat = "dd/MM/yyyy hh:mm:ss";
+            this.endTmDtp.CustomFormat = "dd/MM/yyyy HH:mm:ss";
             this.endTmDtp.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.endTmDtp.Location = new System.Drawing.Point(396, 174);
             this.endTmDtp.Name = "endTmDtp";
@@ -330,7 +330,6 @@ namespace T_HUB
             this.vehsCmb.Size = new System.Drawing.Size(156, 25);
             this.vehsCmb.TabIndex = 12;
             this.vehsCmb.DropDown += new System.EventHandler(this.vehsCmb_DropDown);
-            this.vehsCmb.SelectedIndexChanged += new System.EventHandler(this.vehsCmb_SelectedIndexChanged);
             // 
             // NewRide
             // 
@@ -357,6 +356,7 @@ namespace T_HUB
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "NewRide";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "NewRidecs";
             this.Load += new System.EventHandler(this.NewRidecs_Load);
             this.titlePnl.ResumeLayout(false);

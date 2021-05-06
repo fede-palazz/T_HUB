@@ -38,14 +38,15 @@ namespace T_HUB
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.dashPnl = new System.Windows.Forms.Panel();
             this.endRideBtn = new System.Windows.Forms.Button();
-            this.addRideBtn = new System.Windows.Forms.Button();
             this.noRidesLbl = new System.Windows.Forms.Label();
             this.currentRidesList = new System.Windows.Forms.ListView();
             this.veh = new System.Windows.Forms.ColumnHeader();
             this.licenPlt = new System.Windows.Forms.ColumnHeader();
             this.km = new System.Windows.Forms.ColumnHeader();
             this.startTm = new System.Windows.Forms.ColumnHeader();
-            this.endTm = new System.Windows.Forms.ColumnHeader();
+            this.pass = new System.Windows.Forms.ColumnHeader();
+            this.wg = new System.Windows.Forms.ColumnHeader();
+            this.vol = new System.Windows.Forms.ColumnHeader();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -57,6 +58,7 @@ namespace T_HUB
             this.panel4 = new System.Windows.Forms.Panel();
             this.vanCountLbl = new System.Windows.Forms.Label();
             this.dashVanPtb = new System.Windows.Forms.PictureBox();
+            this.addRideBtn = new System.Windows.Forms.Button();
             this.vehsPnl = new System.Windows.Forms.Panel();
             this.viewCmb = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -74,10 +76,24 @@ namespace T_HUB
             this.maxWg = new System.Windows.Forms.ColumnHeader();
             this.maxVol = new System.Windows.Forms.ColumnHeader();
             this.ridesPnl = new System.Windows.Forms.Panel();
+            this.impComplRidesBtn = new System.Windows.Forms.Button();
+            this.delComplRidesBtn = new System.Windows.Forms.Button();
+            this.expComplRidesBtn = new System.Windows.Forms.Button();
+            this.complRidesList = new System.Windows.Forms.ListView();
+            this.type = new System.Windows.Forms.ColumnHeader();
+            this.licensPlt = new System.Windows.Forms.ColumnHeader();
+            this.totKm = new System.Windows.Forms.ColumnHeader();
+            this.startTime = new System.Windows.Forms.ColumnHeader();
+            this.endTime = new System.Windows.Forms.ColumnHeader();
+            this.numPass = new System.Windows.Forms.ColumnHeader();
+            this.weigth = new System.Windows.Forms.ColumnHeader();
+            this.volume = new System.Windows.Forms.ColumnHeader();
+            this.endPrc = new System.Windows.Forms.ColumnHeader();
             this.navBarPnl = new System.Windows.Forms.FlowLayoutPanel();
             this.navDashPtb = new System.Windows.Forms.PictureBox();
             this.navVehsPtb = new System.Windows.Forms.PictureBox();
             this.navRidesPtb = new System.Windows.Forms.PictureBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.titlePnl.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -90,6 +106,7 @@ namespace T_HUB
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dashVanPtb)).BeginInit();
             this.vehsPnl.SuspendLayout();
+            this.ridesPnl.SuspendLayout();
             this.navBarPnl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.navDashPtb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.navVehsPtb)).BeginInit();
@@ -154,10 +171,10 @@ namespace T_HUB
             // 
             this.dashPnl.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.dashPnl.Controls.Add(this.endRideBtn);
-            this.dashPnl.Controls.Add(this.addRideBtn);
             this.dashPnl.Controls.Add(this.noRidesLbl);
             this.dashPnl.Controls.Add(this.currentRidesList);
             this.dashPnl.Controls.Add(this.flowLayoutPanel1);
+            this.dashPnl.Controls.Add(this.addRideBtn);
             this.dashPnl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dashPnl.Location = new System.Drawing.Point(0, 0);
             this.dashPnl.Margin = new System.Windows.Forms.Padding(0);
@@ -176,19 +193,7 @@ namespace T_HUB
             this.endRideBtn.Size = new System.Drawing.Size(70, 70);
             this.endRideBtn.TabIndex = 8;
             this.endRideBtn.UseVisualStyleBackColor = true;
-            // 
-            // addRideBtn
-            // 
-            this.addRideBtn.BackgroundImage = global::T_HUB.Properties.Resources.startRide;
-            this.addRideBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.addRideBtn.FlatAppearance.BorderSize = 0;
-            this.addRideBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.addRideBtn.Location = new System.Drawing.Point(664, 241);
-            this.addRideBtn.Name = "addRideBtn";
-            this.addRideBtn.Size = new System.Drawing.Size(70, 70);
-            this.addRideBtn.TabIndex = 8;
-            this.addRideBtn.UseVisualStyleBackColor = true;
-            this.addRideBtn.Click += new System.EventHandler(this.addRideBtn_Click);
+            this.endRideBtn.Click += new System.EventHandler(this.endRideBtn_Click);
             // 
             // noRidesLbl
             // 
@@ -210,49 +215,63 @@ namespace T_HUB
             this.licenPlt,
             this.km,
             this.startTm,
-            this.endTm});
+            this.pass,
+            this.wg,
+            this.vol});
             this.currentRidesList.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.currentRidesList.FullRowSelect = true;
             this.currentRidesList.GridLines = true;
             this.currentRidesList.HideSelection = false;
-            this.currentRidesList.LargeImageList = this.imageList1;
-            this.currentRidesList.Location = new System.Drawing.Point(42, 192);
+            this.currentRidesList.Location = new System.Drawing.Point(12, 192);
             this.currentRidesList.MultiSelect = false;
             this.currentRidesList.Name = "currentRidesList";
-            this.currentRidesList.Size = new System.Drawing.Size(590, 249);
+            this.currentRidesList.Size = new System.Drawing.Size(620, 249);
             this.currentRidesList.SmallImageList = this.imageList1;
             this.currentRidesList.TabIndex = 6;
             this.currentRidesList.UseCompatibleStateImageBehavior = false;
             this.currentRidesList.View = System.Windows.Forms.View.Details;
+            this.currentRidesList.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.currentRidesList_ColumnClick);
             // 
             // veh
             // 
-            this.veh.Text = "Vehicle Type";
-            this.veh.Width = 130;
+            this.veh.Text = "Type";
+            this.veh.Width = 50;
             // 
             // licenPlt
             // 
             this.licenPlt.Text = "License Plate";
             this.licenPlt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.licenPlt.Width = 120;
+            this.licenPlt.Width = 110;
             // 
             // km
             // 
             this.km.Text = "Km";
             this.km.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.km.Width = 100;
+            this.km.Width = 80;
             // 
             // startTm
             // 
             this.startTm.Text = "Start Time";
             this.startTm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.startTm.Width = 120;
+            this.startTm.Width = 130;
             // 
-            // endTm
+            // pass
             // 
-            this.endTm.Text = "End Time";
-            this.endTm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.endTm.Width = 120;
+            this.pass.Text = "Passengers";
+            this.pass.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.pass.Width = 90;
+            // 
+            // wg
+            // 
+            this.wg.Text = "Weigth";
+            this.wg.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.wg.Width = 80;
+            // 
+            // vol
+            // 
+            this.vol.Text = "Volume";
+            this.vol.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.vol.Width = 80;
             // 
             // imageList1
             // 
@@ -378,6 +397,19 @@ namespace T_HUB
             this.dashVanPtb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.dashVanPtb.TabIndex = 3;
             this.dashVanPtb.TabStop = false;
+            // 
+            // addRideBtn
+            // 
+            this.addRideBtn.BackgroundImage = global::T_HUB.Properties.Resources.startRide;
+            this.addRideBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.addRideBtn.FlatAppearance.BorderSize = 0;
+            this.addRideBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.addRideBtn.Location = new System.Drawing.Point(664, 241);
+            this.addRideBtn.Name = "addRideBtn";
+            this.addRideBtn.Size = new System.Drawing.Size(70, 70);
+            this.addRideBtn.TabIndex = 8;
+            this.addRideBtn.UseVisualStyleBackColor = true;
+            this.addRideBtn.Click += new System.EventHandler(this.addRideBtn_Click);
             // 
             // vehsPnl
             // 
@@ -550,11 +582,135 @@ namespace T_HUB
             // ridesPnl
             // 
             this.ridesPnl.BackColor = System.Drawing.Color.Sienna;
+            this.ridesPnl.Controls.Add(this.impComplRidesBtn);
+            this.ridesPnl.Controls.Add(this.delComplRidesBtn);
+            this.ridesPnl.Controls.Add(this.expComplRidesBtn);
+            this.ridesPnl.Controls.Add(this.complRidesList);
             this.ridesPnl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ridesPnl.Location = new System.Drawing.Point(0, 0);
+            this.ridesPnl.Location = new System.Drawing.Point(0, 65);
             this.ridesPnl.Name = "ridesPnl";
-            this.ridesPnl.Size = new System.Drawing.Size(763, 600);
+            this.ridesPnl.Size = new System.Drawing.Size(763, 535);
             this.ridesPnl.TabIndex = 0;
+            // 
+            // impComplRidesBtn
+            // 
+            this.impComplRidesBtn.BackgroundImage = global::T_HUB.Properties.Resources.importRide;
+            this.impComplRidesBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.impComplRidesBtn.FlatAppearance.BorderSize = 0;
+            this.impComplRidesBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.impComplRidesBtn.Location = new System.Drawing.Point(140, 368);
+            this.impComplRidesBtn.Name = "impComplRidesBtn";
+            this.impComplRidesBtn.Size = new System.Drawing.Size(70, 70);
+            this.impComplRidesBtn.TabIndex = 10;
+            this.impComplRidesBtn.UseVisualStyleBackColor = true;
+            this.impComplRidesBtn.Click += new System.EventHandler(this.impComplRidesBtn_Click);
+            // 
+            // delComplRidesBtn
+            // 
+            this.delComplRidesBtn.BackgroundImage = global::T_HUB.Properties.Resources.deleteRides;
+            this.delComplRidesBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.delComplRidesBtn.FlatAppearance.BorderSize = 0;
+            this.delComplRidesBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.delComplRidesBtn.Location = new System.Drawing.Point(542, 368);
+            this.delComplRidesBtn.Name = "delComplRidesBtn";
+            this.delComplRidesBtn.Size = new System.Drawing.Size(70, 70);
+            this.delComplRidesBtn.TabIndex = 10;
+            this.delComplRidesBtn.UseVisualStyleBackColor = true;
+            this.delComplRidesBtn.Click += new System.EventHandler(this.delComplRidesBtn_Click);
+            // 
+            // expComplRidesBtn
+            // 
+            this.expComplRidesBtn.BackgroundImage = global::T_HUB.Properties.Resources.exportRide;
+            this.expComplRidesBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.expComplRidesBtn.FlatAppearance.BorderSize = 0;
+            this.expComplRidesBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.expComplRidesBtn.Location = new System.Drawing.Point(341, 368);
+            this.expComplRidesBtn.Name = "expComplRidesBtn";
+            this.expComplRidesBtn.Size = new System.Drawing.Size(70, 70);
+            this.expComplRidesBtn.TabIndex = 10;
+            this.expComplRidesBtn.UseVisualStyleBackColor = true;
+            this.expComplRidesBtn.Click += new System.EventHandler(this.expComplRidesBtn_Click);
+            // 
+            // complRidesList
+            // 
+            this.complRidesList.BackColor = System.Drawing.SystemColors.Control;
+            this.complRidesList.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.complRidesList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.type,
+            this.licensPlt,
+            this.totKm,
+            this.startTime,
+            this.endTime,
+            this.numPass,
+            this.weigth,
+            this.volume,
+            this.endPrc});
+            this.complRidesList.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.complRidesList.FullRowSelect = true;
+            this.complRidesList.GridLines = true;
+            this.complRidesList.HideSelection = false;
+            this.complRidesList.Location = new System.Drawing.Point(12, 37);
+            this.complRidesList.MultiSelect = false;
+            this.complRidesList.Name = "complRidesList";
+            this.complRidesList.Size = new System.Drawing.Size(739, 295);
+            this.complRidesList.SmallImageList = this.imageList1;
+            this.complRidesList.TabIndex = 7;
+            this.complRidesList.UseCompatibleStateImageBehavior = false;
+            this.complRidesList.View = System.Windows.Forms.View.Details;
+            this.complRidesList.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.complRidesList_ColumnClick);
+            // 
+            // type
+            // 
+            this.type.Text = "Type";
+            this.type.Width = 50;
+            // 
+            // licensPlt
+            // 
+            this.licensPlt.Text = "License Plate";
+            this.licensPlt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.licensPlt.Width = 103;
+            // 
+            // totKm
+            // 
+            this.totKm.Text = "Km";
+            this.totKm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.totKm.Width = 80;
+            // 
+            // startTime
+            // 
+            this.startTime.Text = "Start Time";
+            this.startTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.startTime.Width = 100;
+            // 
+            // endTime
+            // 
+            this.endTime.Text = "End Time";
+            this.endTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.endTime.Width = 100;
+            // 
+            // numPass
+            // 
+            this.numPass.Text = "Passengers";
+            this.numPass.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numPass.Width = 90;
+            // 
+            // weigth
+            // 
+            this.weigth.Text = "Weigth";
+            this.weigth.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.weigth.Width = 70;
+            // 
+            // volume
+            // 
+            this.volume.Text = "Volume";
+            this.volume.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.volume.Width = 70;
+            // 
+            // endPrc
+            // 
+            this.endPrc.Text = "End Price";
+            this.endPrc.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.endPrc.Width = 76;
             // 
             // navBarPnl
             // 
@@ -621,10 +777,10 @@ namespace T_HUB
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(763, 600);
             this.Controls.Add(this.navBarPnl);
+            this.Controls.Add(this.ridesPnl);
             this.Controls.Add(this.vehsPnl);
             this.Controls.Add(this.titlePnl);
             this.Controls.Add(this.dashPnl);
-            this.Controls.Add(this.ridesPnl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Form1";
@@ -650,6 +806,7 @@ namespace T_HUB
             ((System.ComponentModel.ISupportInitialize)(this.dashVanPtb)).EndInit();
             this.vehsPnl.ResumeLayout(false);
             this.vehsPnl.PerformLayout();
+            this.ridesPnl.ResumeLayout(false);
             this.navBarPnl.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.navDashPtb)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.navVehsPtb)).EndInit();
@@ -684,7 +841,6 @@ namespace T_HUB
         private System.Windows.Forms.ListView currentRidesList;
         private System.Windows.Forms.ColumnHeader veh;
         private System.Windows.Forms.ColumnHeader startTm;
-        private System.Windows.Forms.ColumnHeader endTm;
         private System.Windows.Forms.ColumnHeader km;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.Label noRidesLbl;
@@ -706,6 +862,23 @@ namespace T_HUB
         private System.Windows.Forms.Button addVehBtn;
         private System.Windows.Forms.ComboBox viewCmb;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ColumnHeader pass;
+        private System.Windows.Forms.ColumnHeader wg;
+        private System.Windows.Forms.ColumnHeader vol;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ListView complRidesList;
+        private System.Windows.Forms.ColumnHeader type;
+        private System.Windows.Forms.ColumnHeader licensPlt;
+        private System.Windows.Forms.ColumnHeader totKm;
+        private System.Windows.Forms.ColumnHeader startTime;
+        private System.Windows.Forms.ColumnHeader endTime;
+        private System.Windows.Forms.ColumnHeader numPass;
+        private System.Windows.Forms.ColumnHeader weigth;
+        private System.Windows.Forms.ColumnHeader volume;
+        private System.Windows.Forms.ColumnHeader endPrc;
+        private System.Windows.Forms.Button impComplRidesBtn;
+        private System.Windows.Forms.Button delComplRidesBtn;
+        private System.Windows.Forms.Button expComplRidesBtn;
     }
 }
 

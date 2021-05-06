@@ -49,6 +49,24 @@ namespace T_HUB
             impVehBtn.BackColor = ColorTranslator.FromHtml("#263238");
             expVehBtn.BackColor = ColorTranslator.FromHtml("#263238");
 
+            impComplRidesBtn.BackColor = ColorTranslator.FromHtml("#263238");
+            expComplRidesBtn.BackColor = ColorTranslator.FromHtml("#263238");
+            delComplRidesBtn.BackColor = ColorTranslator.FromHtml("#263238");
+
+            // Tooltips 
+            ToolTip toolTip1 = new ToolTip();
+            toolTip1.ShowAlways = true;
+            toolTip1.SetToolTip(addRideBtn, "Add a new ride");
+            toolTip1.SetToolTip(endRideBtn, "End the selected ride");
+            toolTip1.SetToolTip(addVehBtn, "Add a new vehicle");
+            toolTip1.SetToolTip(updVehBtn, "Update the selected vehicle");
+            toolTip1.SetToolTip(delVehBtn, "Remove the selected vehicle");
+            toolTip1.SetToolTip(impVehBtn, "Import vehicles");
+            toolTip1.SetToolTip(expVehBtn, "Export vehicles");
+            toolTip1.SetToolTip(impComplRidesBtn, "Import rides");
+            toolTip1.SetToolTip(expComplRidesBtn, "Export rides");
+            toolTip1.SetToolTip(delComplRidesBtn, "Clear history");
+
             #endregion
 
             hub = new THubImpl();
@@ -205,7 +223,11 @@ namespace T_HUB
                     vehsList.SelectedItems[0].Remove();
                     RefreshAvailability();
                 }
+                else
+                    MessageBox.Show("The vehicle is currently unavailable :(", "Warning",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
         }
 
         private void updVehBtn_Click(object sender, EventArgs e)
@@ -221,6 +243,9 @@ namespace T_HUB
                 }
                 RefreshVehsList();
             }
+            else
+                MessageBox.Show("The vehicle is currently unavailable :(", "Warning",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void viewCmb_SelectedIndexChanged(object sender, EventArgs e)
@@ -233,14 +258,12 @@ namespace T_HUB
                     RefreshVehsList();
                     break;
                 case 1: // Available vehicles
-                    foreach (Vehicle v in hub.GetVehs())
-                        if (hub.IsAvailable(v.LicPlt))
-                            DisplayVeh(v);
+                    foreach (Vehicle v in hub.GetAvailVehs())
+                        DisplayVeh(v);
                     break;
                 case 2: // Non available vehicles
-                    foreach (Vehicle v in hub.GetVehs())
-                        if (!hub.IsAvailable(v.LicPlt))
-                            DisplayVeh(v);
+                    foreach (Vehicle v in hub.GetNotAvailVehs())
+                        DisplayVeh(v);
                     break;
             }
         }
@@ -310,6 +333,36 @@ namespace T_HUB
             }
         }
 
+        private void impVehBtn_Click(object sender, EventArgs e)
+        {
+            string path = ""; // File path
+            using (OpenFileDialog dialog = new OpenFileDialog())
+            {
+                dialog.Filter = "JSOn File|*.json";
+                dialog.Title = "Import Vehicles";
+                if (dialog.ShowDialog() == DialogResult.OK)
+                    path = dialog.FileName;
+                else
+                    return;
+            }
+
+            List<Vehicle> impVehs = null;
+            try
+            {
+                impVehs = JsonUtil.JsonToVehs(JsonUtil.ReadJArray(path));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+                return;
+            }
+
+            hub.LoadVehs(impVehs);
+            RefreshVehsList();
+            RefreshAvailability();
+        }
+
         #endregion
 
         #region Dashboard
@@ -341,38 +394,248 @@ namespace T_HUB
                 dashVanPtb.Image = T_HUB.Properties.Resources.van_red;
         }
 
+        private void DisplayRide(Ride ride)
+        {
+            // type  licPlt   Km   Pass  Wg   Vol   StartTm
 
+            ListViewItem row = null; // Listview row
 
+            if (ride.GetType() == typeof(PassRide)) // Passenger ride
+            {
+                string[] param = {"", ride.VehLicPlt, ride.Km.ToString(), ride.StartTm.ToString(),
+                    (ride as PassRide).NumPass.ToString(), "-", "-"};
+                // Vehicle type
+                if (hub.Type(hub.GetVeh(ride.VehLicPlt)) == "car")
+                    row = new ListViewItem(param, 0); // Adds row with image
+                else if (hub.Type(hub.GetVeh(ride.VehLicPlt)) == "van")
+                    row = new ListViewItem(param, 2); // Adds row with image
+            }
+            else // Freight ride
+            {
+                string[] param = {"", ride.VehLicPlt, ride.Km.ToString(), ride.StartTm.ToString(),
+                    "-", (ride as FreightRide).Wg.ToString(), (ride as FreightRide).Vol.ToString()};
+                // Vehicle type
+                if (hub.Type(hub.GetVeh(ride.VehLicPlt)) == "truck")
+                    row = new ListViewItem(param, 1); // Adds row with image
+                else if (hub.Type(hub.GetVeh(ride.VehLicPlt)) == "van")
+                    row = new ListViewItem(param, 2); // Adds row with image
+            }
+            // Adds the row
+            currentRidesList.Items.Add(row);
+        }
 
+        private void RefreshRidesList()
+        {
+            currentRidesList.Items.Clear(); // Removes all vehicles
+            if (hub.GetRides().Count > 0)
+            {
+                noRidesLbl.Visible = false;
+                foreach (Ride r in hub.GetRides())
+                    DisplayRide(r);
+            }
+            else
+                noRidesLbl.Visible = true;
+        }
 
         private void addRideBtn_Click(object sender, EventArgs e)
         {
-            bool added = false;
-            using (NewRide ride = new NewRide(hub, added))
+            if (hub.GetVehs().Count == 0)
+            {
+                MessageBox.Show("You should add a vehicle first ;)", "Warning", MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
+            // Opens the new ride form
+            using (NewRide ride = new NewRide(hub))
             {
                 ride.ShowDialog();
             }
+            RefreshRidesList();
+            RefreshVehsList();
+            RefreshAvailability();
         }
+
+        private void endRideBtn_Click(object sender, EventArgs e)
+        {
+            if (currentRidesList.Items.Count > 0) // At least one ride in the list
+            {
+                // Gets the license plate
+                string licPlt = currentRidesList.SelectedItems[0].SubItems[1].Text;
+                if (!string.IsNullOrEmpty(licPlt))
+                {
+                    // Removes it
+                    hub.EndRide(licPlt);
+
+                    // Updates vehicle's km
+                    int rideKm = int.Parse(currentRidesList.SelectedItems[0].SubItems[2].Text);
+                    hub.GetVeh(licPlt).TotalKm += rideKm;
+
+                    // Updates end price
+                    double startPrc = hub.GetComplRide(licPlt).StartPrc;
+                    hub.GetComplRide(licPlt).EndPrc = (hub.GetVeh(licPlt).PriceKm * rideKm) + startPrc;
+
+                    currentRidesList.SelectedItems[0].Remove();
+                    if (currentRidesList.Items.Count == 0)
+                        noRidesLbl.Visible = true;
+                    RefreshComplRidesList();
+                    RefreshVehsList();
+                    RefreshAvailability();
+                }
+            }
+        }
+
+        private void currentRidesList_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            ItemComparer sorter = currentRidesList.ListViewItemSorter as ItemComparer;
+            if (sorter == null)
+            {
+                sorter = new ItemComparer(e.Column);
+                sorter.Order = SortOrder.Ascending;
+                currentRidesList.ListViewItemSorter = sorter;
+            }
+            // if clicked column is already the column that is being sorted
+            if (e.Column == sorter.Column)
+            {
+                // Reverse the current sort direction
+                if (sorter.Order == SortOrder.Ascending)
+                    sorter.Order = SortOrder.Descending;
+                else
+                    sorter.Order = SortOrder.Ascending;
+            }
+            else
+            {
+                // Set the column number that is to be sorted; default to ascending.
+                sorter.Column = e.Column;
+                sorter.Order = SortOrder.Ascending;
+            }
+            currentRidesList.Sort();
+        }
+
         #endregion
 
-        private void impVehBtn_Click(object sender, EventArgs e)
+        #region Completed Rides
+        private void complRidesList_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            ItemComparer sorter = complRidesList.ListViewItemSorter as ItemComparer;
+            if (sorter == null)
+            {
+                sorter = new ItemComparer(e.Column);
+                sorter.Order = SortOrder.Ascending;
+                complRidesList.ListViewItemSorter = sorter;
+            }
+            // if clicked column is already the column that is being sorted
+            if (e.Column == sorter.Column)
+            {
+                // Reverse the current sort direction
+                if (sorter.Order == SortOrder.Ascending)
+                    sorter.Order = SortOrder.Descending;
+                else
+                    sorter.Order = SortOrder.Ascending;
+            }
+            else
+            {
+                // Set the column number that is to be sorted; default to ascending.
+                sorter.Column = e.Column;
+                sorter.Order = SortOrder.Ascending;
+            }
+            complRidesList.Sort();
+        }
+
+        private void RefreshComplRidesList()
+        {
+            complRidesList.Items.Clear(); // Removes all vehicles
+            if (hub.GetComplRides().Count > 0)
+            {
+                foreach (Ride r in hub.GetComplRides())
+                    DisplayComplRide(r);
+            }
+        }
+
+        private void DisplayComplRide(Ride ride)
+        {
+            // type   licPlt   Km   startTm   endTm   Pass   Wg   Vol   endPrc    
+            ListViewItem row = null; // Listview row
+
+            if (ride.GetType() == typeof(PassRide)) // Passenger ride
+            {
+                string[] param = {"", ride.VehLicPlt, ride.Km.ToString(), ride.StartTm.ToString(),
+                    ride.EndTm.ToString(), (ride as PassRide).NumPass.ToString(), "-", "-",
+                    ride.EndPrc.ToString()};
+                // Vehicle type
+                if (ride.VehType == "car")
+                    row = new ListViewItem(param, 0); // Adds row with image
+                else if (ride.VehType == "van")
+                    row = new ListViewItem(param, 2); // Adds row with image
+            }
+            else // Freight ride
+            {
+                string[] param = {"", ride.VehLicPlt, ride.Km.ToString(), ride.StartTm.ToString(),
+                    ride.EndTm.ToString(), "-", (ride as FreightRide).Wg.ToString(), 
+                    (ride as FreightRide).Vol.ToString(), ride.EndPrc.ToString()};
+                // Vehicle type
+                if (ride.VehType == "truck")
+                    row = new ListViewItem(param, 1); // Adds row with image
+                else if (ride.VehType == "van")
+                    row = new ListViewItem(param, 2); // Adds row with image
+            }
+            // Adds the row
+            complRidesList.Items.Add(row);
+        }
+
+        private void impComplRidesBtn_Click(object sender, EventArgs e)
         {
             string path = ""; // File path
             using (OpenFileDialog dialog = new OpenFileDialog())
             {
                 dialog.Filter = "JSOn File|*.json";
-                dialog.Title = "Import Vehicles";
+                dialog.Title = "Import Rides";
                 if (dialog.ShowDialog() == DialogResult.OK)
                     path = dialog.FileName;
                 else
                     return;
             }
 
-            List<Vehicle> impVehs = JsonUtil.JsonToVehs(JsonUtil.ReadJArray(path));
-
-            hub.LoadVehs(impVehs);
-            RefreshVehsList();
-            RefreshAvailability();
+            List<Ride> impRides = null;
+            try
+            {
+                impRides = JsonUtil.JsonToRides(JsonUtil.ReadJArray(path));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+                return;
+            }
+            hub.LoadRides(impRides);
+            RefreshComplRidesList();
         }
+
+        private void expComplRidesBtn_Click(object sender, EventArgs e)
+        {
+            if (complRidesList.Items.Count > 0)
+            {
+                string path = ""; // File path
+
+                using (SaveFileDialog dialog = new SaveFileDialog())
+                {
+                    dialog.Filter = "JSOn File|*.json";
+                    dialog.Title = "Export Rides";
+                    if (dialog.ShowDialog() == DialogResult.OK)
+                        path = dialog.FileName;
+                    else
+                        return;
+                }
+                // Save to file
+                JsonUtil.WriteJArray(JsonUtil.RidesToJson(hub.GetComplRides()), path);
+            }
+        }
+
+        private void delComplRidesBtn_Click(object sender, EventArgs e)
+        {
+            hub.DelComplRides();
+            RefreshComplRidesList();
+        }
+
+        #endregion
     }
 }

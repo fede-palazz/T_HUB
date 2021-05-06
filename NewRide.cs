@@ -13,24 +13,25 @@ namespace T_HUB
     public partial class NewRide : Form
     {
         private THub hub;
-        private bool added; // New ride added
 
         public NewRide()
         {
             InitializeComponent();
         }
 
-        public NewRide(THub hub, bool added)
+        public NewRide(THub hub)
         {
             InitializeComponent();
             this.hub = hub;
-            this.added = added;
         }
 
         private void NewRidecs_Load(object sender, EventArgs e)
         {
             titlePnl.BackColor = ColorTranslator.FromHtml("#263238");
             titleLbl.ForeColor = ColorTranslator.FromHtml("#eceff1");
+
+            startTmDtp.Value = DateTime.Now;
+            endTmDtp.Value = DateTime.Now;
         }
 
         private void passRbt_CheckedChanged(object sender, EventArgs e)
@@ -84,23 +85,22 @@ namespace T_HUB
             }
 
             #endregion
-
-            string type = vehsCmb.Text.Substring(1, vehsCmb.Text.LastIndexOf("]"));
-            string licPlt = vehsCmb.Text.Substring(vehsCmb.Text.LastIndexOf("]") + 2);
-
+            
+            string type = vehsCmb.Text.Substring(1, vehsCmb.Text.LastIndexOf("]") - 1).ToLower();
+            string licPlt = vehsCmb.Text.Substring(vehsCmb.Text.LastIndexOf("]") + 2,
+                            vehsCmb.Text.IndexOf('(') - 3 - vehsCmb.Text.LastIndexOf("]"))  ;
             if (passRbt.Checked) // Passenger ride
             {
                 hub.AddRide(new PassRide(type, licPlt, int.Parse(kmTxb.Text),
-                    startTmDtp.Value.Date, endTmDtp.Value.Date, int.Parse(numPassTxb.Text),
+                    startTmDtp.Value, endTmDtp.Value, int.Parse(numPassTxb.Text),
                     double.Parse(startPrcTxb.Text)));
             }
             else // Freight ride
             {
                 hub.AddRide(new FreightRide(type, licPlt, int.Parse(kmTxb.Text),
-                    startTmDtp.Value.Date, endTmDtp.Value.Date, double.Parse(wgTxb.Text),
+                    startTmDtp.Value, endTmDtp.Value, double.Parse(wgTxb.Text),
                     double.Parse(volTxb.Text), double.Parse(startPrcTxb.Text)));
             }
-            added = true;
             this.Close();
         }
 
@@ -121,11 +121,6 @@ namespace T_HUB
 
         }
 
-        private void vehsCmb_SelectedIndexChanged(object sender, EventArgs e)
-        {
-           
-        }
-
         private void vehsCmb_DropDown(object sender, EventArgs e)
         {
             // Checks
@@ -138,32 +133,35 @@ namespace T_HUB
                 && !double.TryParse(volTxb.Text, out temp))
                 return;
 
-            foreach (Vehicle v in hub.GetVehs())
+            foreach (Vehicle v in hub.GetAvailVehs())
             {
-                if (hub.IsAvailable(v.LicPlt)) // Vehicle available
-                {
-                    string type = hub.Type(v); // Vehicle type
-                    switch (type)
-                    {
-                        case "car":
-                            if (passRbt.Checked && (v as Car).MaxPass >= int.Parse(numPassTxb.Text))
-                                vehsCmb.Items.Add("[" + type.ToUpper() + "] " + v.LicPlt);
-                            break;
-                        case "truck":
-                            if (freightRbt.Checked && (v as Truck).MaxWg >= double.Parse(wgTxb.Text)
-                                && (v as Truck).MaxVol >= double.Parse(volTxb.Text))
-                                vehsCmb.Items.Add("[" + type.ToUpper() + "] " + v.LicPlt);
-                            break;
-                        case "van":
-                            if (passRbt.Checked && (v as Van).MaxPass >= int.Parse(numPassTxb.Text))
-                                vehsCmb.Items.Add("[" + type.ToUpper() + "] " + v.LicPlt);
-                            else if (freightRbt.Checked && (v as Van).MaxWg >= double.Parse(wgTxb.Text)
-                                && (v as Van).MaxVol >= double.Parse(volTxb.Text))
-                                vehsCmb.Items.Add("[" + type.ToUpper() + "] " + v.LicPlt);
-                            break;
-                    }
 
+                string type = hub.Type(v); // Vehicle type
+                switch (type)
+                {
+                    case "car":
+                        if (passRbt.Checked && (v as Car).MaxPass >= int.Parse(numPassTxb.Text))
+                            vehsCmb.Items.Add("[" + type.ToUpper() + "] " + v.LicPlt +
+                                " (" + v.Mod + ")");
+                        break;
+                    case "truck":
+                        if (freightRbt.Checked && (v as Truck).MaxWg >= double.Parse(wgTxb.Text)
+                            && (v as Truck).MaxVol >= double.Parse(volTxb.Text))
+                            vehsCmb.Items.Add("[" + type.ToUpper() + "] " + v.LicPlt +
+                                " (" + v.Mod + ")");
+                        break;
+                    case "van":
+                        if (passRbt.Checked && (v as Van).MaxPass >= int.Parse(numPassTxb.Text))
+                            vehsCmb.Items.Add("[" + type.ToUpper() + "] " + v.LicPlt +
+                                " (" + v.Mod + ")");
+                        else if (freightRbt.Checked && (v as Van).MaxWg >= double.Parse(wgTxb.Text)
+                            && (v as Van).MaxVol >= double.Parse(volTxb.Text))
+                            vehsCmb.Items.Add("[" + type.ToUpper() + "] " + v.LicPlt +
+                                " (" + v.Mod + ")");
+                        break;
                 }
+
+
             }
         }
     }
